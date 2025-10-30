@@ -1,0 +1,41 @@
+<header id="site-header" class="fixed top-5 w-full z-10 p-6 overflow-visible transform transition-transform duration-300">
+  <nav class="relative max-w-6xl mx-auto overflow-visible">
+    <div class="bg-neutral-900 bg-opacity-50 rounded-full w-full flex items-center justify-between px-8 h-16 z-10">
+      <a href="/projects" class="text-white font-fruktur tracking-widest uppercase px-6">Projet</a>
+
+      <div class="w-24" aria-hidden="true"></div>
+
+      <a href="/contact" class="text-white font-fruktur tracking-widest uppercase px-6">Contact</a>
+    </div>
+
+    <a href="/" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+      <img src="/src/assets/icons/logo.svg" alt="Logo" class="w-28 h-28 md:w-28 md:h-28" />
+    </a>
+  </nav>
+</header>
+
+<script>
+  (function () {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+
+    let lastScroll = window.scrollY || 0;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY || 0;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (current > lastScroll && current > 50) {
+            header.classList.add('-translate-y-full');
+          } else {
+            header.classList.remove('-translate-y-full');
+          }
+          lastScroll = current <= 0 ? 0 : current;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+</script>
