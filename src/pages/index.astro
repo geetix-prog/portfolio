@@ -5,11 +5,10 @@ import Hero from "../assets/img/hero.png";
 import Death from "../assets/icons/death.svg";
 ---
 <Layout>
-  <!-- <FirstPage /> -->
-  <div class="h-screen w-full overflow-hidden flex items-center justify-center">
+  <div id="hero-section" class="h-screen w-full overflow-hidden flex items-center justify-center relative">
     <div class="text-center space-y-20">
       <p class="text-secondary text-4xl font-grotesk">Développeur créatif</p>
-      <h1 class="text-9xl font-fruktur uppercase text-secondary">Mathis Guellati</h1>
+      <h1 id="name-title" class="text-9xl font-fruktur uppercase text-secondary">Mathis Guellati</h1>
       
       <button 
         id="death-button"
@@ -27,8 +26,133 @@ import Death from "../assets/icons/death.svg";
       class="w-full h-full object-cover absolute -z-10"
     />
   </div>
+  
+  <div class="h-screen w-full bg-gray-900 flex items-center justify-center">
+    <h2 class="text-6xl text-white">Section suivante</h2>
+  </div>
 </Layout>
+
 <script>
+  const deathButton = document.getElementById('death-button');
+  const nameTitle = document.getElementById('name-title');
+  const heroSection = document.getElementById('hero-section');
+  
+  deathButton?.addEventListener('click', () => {
+    if (!nameTitle || !heroSection) return;
+    
+    const rect = nameTitle.getBoundingClientRect();
+    
+    const text = nameTitle.textContent || '';
+    const letters = text.split('');
+    
+    nameTitle.innerHTML = '';
+    const letterElements: HTMLElement[] = [];
+    
+    letters.forEach((letter) => {
+      const span = document.createElement('span');
+      span.textContent = letter;
+      span.style.display = 'inline-block';
+      nameTitle.appendChild(span);
+      letterElements.push(span);
+    });
+    
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.pointerEvents = 'none';
+    container.style.zIndex = '10';
+    heroSection.appendChild(container);
+    
+    const heroRect = heroSection.getBoundingClientRect();
+    
+    letterElements.forEach((letterEl, index) => {
+      const letter = letterEl.textContent;
+      if (letter === ' ') return;
+      
+      const letterRect = letterEl.getBoundingClientRect();
+      const startX = letterRect.left - heroRect.left + letterRect.width / 2;
+      const startY = letterRect.top - heroRect.top + letterRect.height / 2;
+      
+      const span = document.createElement('span');
+      span.textContent = letter;
+      span.className = 'font-fruktur uppercase text-secondary';
+      span.style.position = 'absolute';
+      span.style.fontSize = '9rem';
+      span.style.left = `${startX}px`;
+      span.style.top = `${startY}px`;
+      span.style.transform = 'translate(-50%, -50%)';
+      
+      const angle = (Math.random() * Math.PI * 2);
+      const velocity = 800 + Math.random() * 1200;
+      const vx = Math.cos(angle) * velocity;
+      const vy = Math.sin(angle) * velocity - 400;
+      const rotation = (Math.random() - 0.5) * 720;
+      const rotationSpeed = (Math.random() - 0.5) * 15;
+      
+      container.appendChild(span);
+      
+      let x = startX;
+      let y = startY;
+      let velX = vx;
+      let velY = vy;
+      let rot = 0;
+      const gravity = 1500;
+      let time = 0;
+      const friction = 0.8;
+      
+      const animate = () => {
+        time += 0.016;
+        
+        velY += gravity * 0.016;
+        
+        x += velX * 0.016;
+        y += velY * 0.016;
+        rot += rotationSpeed;
+        
+        const margin = 50;
+        const heroWidth = heroSection.offsetWidth;
+        const heroHeight = heroSection.offsetHeight;
+        
+        if (x < margin) {
+          x = margin;
+          velX = Math.abs(velX) * friction;
+        } else if (x > heroWidth - margin) {
+          x = heroWidth - margin;
+          velX = -Math.abs(velX) * friction;
+        }
+        
+        if (y < margin) {
+          y = margin;
+          velY = Math.abs(velY) * friction;
+        } else if (y > heroHeight - margin) {
+          y = heroHeight - margin;
+          velY = -Math.abs(velY) * friction;
+          velX *= friction;
+        }
+        
+        if (Math.abs(velX) < 5 && Math.abs(velY) < 5 && y > heroHeight - margin - 10) {
+          velX = 0;
+          velY = 0;
+          return;
+        }
+        
+        span.style.left = `${x}px`;
+        span.style.top = `${y}px`;
+        span.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+        
+        requestAnimationFrame(animate);
+      };
+      
+      requestAnimationFrame(animate);
+    });
+    
+    nameTitle.style.opacity = '0';
+    
+  });
+
   setTimeout(() => {
     console.log("Script exécuté");
     const firstPage = document.getElementById("first-page");
