@@ -1,26 +1,138 @@
 ---
-import '../styles/global.css'
+import "../styles/global.css";
 ---
 
 <!doctype html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body class="bg-primary">
+    <div class="crosshair-line line-horizontal" id="lineH"></div>
+    <div class="crosshair-line line-vertical" id="lineV"></div>
+    <div class="custom-cursor" id="cursor"></div>
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    html,
+    body {
+      cursor: none;
+    }
+  }
+
+  .crosshair-line {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 99999;
+    transition: opacity 0.3s;
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .crosshair-line {
+      display: block;
+    }
+  }
+
+  .line-horizontal {
+    height: 1px;
+    width: 100vw;
+    left: 0;
+  }
+  .line-vertical {
+    width: 1px;
+    height: 100vh;
+    top: 0;
+  }
+  .custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100000;
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.2s,
+      height 0.2s;
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .custom-cursor {
+      display: block;
+    }
+  }
+
+  .custom-cursor.clicking {
+    width: 15px;
+    height: 15px;
+  }
 </style>
+
+<script is:inline>
+  function initCursor() {
+    if (window.innerWidth < 1024) return;
+
+    const lineH = document.getElementById("lineH");
+    const lineV = document.getElementById("lineV");
+    const cursor = document.getElementById("cursor");
+
+    if (!lineH || !lineV || !cursor) return;
+
+    function updatePosition(e) {
+      const x = e.clientX;
+      const y = e.clientY;
+
+      lineH.style.top = y + "px";
+      lineV.style.left = x + "px";
+      cursor.style.left = x + "px";
+      cursor.style.top = y + "px";
+    }
+
+    document.addEventListener("mousemove", updatePosition);
+
+    document.addEventListener("mousedown", () => {
+      cursor.classList.add("clicking");
+    });
+
+    document.addEventListener("mouseup", () => {
+      cursor.classList.remove("clicking");
+    });
+
+    document.addEventListener("mouseleave", () => {
+      lineH.style.opacity = "0";
+      lineV.style.opacity = "0";
+      cursor.style.opacity = "0";
+    });
+
+    document.addEventListener("mouseenter", () => {
+      lineH.style.opacity = "1";
+      lineV.style.opacity = "1";
+      cursor.style.opacity = "1";
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCursor);
+  } else {
+    initCursor();
+  }
+</script>
