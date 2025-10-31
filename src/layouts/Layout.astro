@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
@@ -13,11 +14,12 @@ import Header from "../components/Header.astro";
     <title>Mathis Guellati</title>
   </head>
   <body class="bg-primary">
-	<Header />
+    <Header />
     <div class="crosshair-line line-horizontal" id="lineH"></div>
     <div class="crosshair-line line-vertical" id="lineV"></div>
     <div class="custom-cursor" id="cursor"></div>
     <slot />
+    <Footer />
   </body>
 </html>
 
@@ -145,7 +147,9 @@ import Header from "../components/Header.astro";
       cursor.style.opacity = "1";
     });
 
-    const hoverables = document.querySelectorAll("a, button, img, [data-hover]");
+    const hoverables = document.querySelectorAll(
+      "a, button, img, [data-hover]"
+    );
 
     hoverables.forEach((el) => {
       el.addEventListener("mouseenter", () => {
