@@ -3,22 +3,34 @@ import Layout from "../layouts/Layout.astro";
 import FirstPage from "../components/FirstPage.astro";
 import Hero from "../assets/img/hero.png";
 import Death from "../assets/icons/death.svg";
+import Git from "../assets/icons/Github.svg";
+import Linkedin from "../assets/icons/Lk.svg";
 ---
 <Layout>
   <div id="hero-section" class="h-screen w-full overflow-hidden flex items-center justify-center relative">
-    <div class="text-center space-y-20">
-      <p class="text-secondary text-4xl font-grotesk">Développeur créatif</p>
-      <h1 id="name-title" class="text-9xl font-fruktur uppercase text-secondary">Mathis Guellati</h1>
-      
-      <button 
-        id="death-button"
-        class="bg-secondary rounded-full w-15 h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
-      >
-        <img src={Death.src} alt="Ne pas cliquer" class="w-10 h-10 flex-shrink-0">
-        <p class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-          Ne cliquer pas
-        </p>
-      </button>
+    <div class="text-center">
+      <div class="text-center space-y-20">
+        <p class="text-secondary text-2xl lg:text-4xl font-grotesk">Développeur créatif</p>
+        <h1 id="name-title" class="text-8xl lg:text-9xl font-fruktur uppercase text-secondary">Mathis Guellati</h1>
+        
+        <button 
+          id="death-button"
+          class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
+        >
+          <img src={Death.src} alt="Ne pas cliquer" class="w-8 h-8 lg:w-10 lg:h-10">
+          <p class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+            Ne cliquer pas
+          </p>
+        </button>
+      </div>
+      <div class="space-x-10 absolute bottom-20 left-1/2 transform -translate-x-1/2">
+        <a href="https://github.com/geetix-prog">
+          <img src={Git.src} alt="GitHub" class="w-12 h-12 lg:w-15 lg:h-15 inline-block" />
+        </a>
+        <a href="https://www.linkedin.com/in/mathis-guellati-631502329/">
+          <img src={Linkedin.src} alt="LinkedIn" class="w-12 h-12 lg:w-15 lg:h-15 inline-block" />
+        </a>
+      </div>
     </div>
     <img 
       src={Hero.src} 
