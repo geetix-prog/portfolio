@@ -5,209 +5,267 @@ import Hero from "../assets/img/hero.png";
 import Death from "../assets/icons/death.svg";
 import Git from "../assets/icons/Github.svg";
 import Lk from "../assets/icons/Lk.svg";
+import Me from "../assets/img/mepic.webp";
+import Arrow from "../assets/icons/arrow.svg";
 ---
 
 <Layout>
+  <FirstPage />
   <div
     id="hero-section"
     class="h-screen w-full overflow-hidden flex items-center justify-center relative"
   >
-    <div>
-      <div class="text-center space-y-20">
-        <p class="text-secondary text-2xl lg:text-4xl font-grotesk">Développeur créatif</p>
-        <h1
-          id="name-title"
-          class="text-8xl lg:text-9xl font-fruktur uppercase text-secondary"
-        >
-          Mathis Guellati
-        </h1>
+    <div class="text-center space-y-20">
+      <p class="text-secondary text-2xl lg:text-4xl font-grotesk">
+        Développeur créatif
+      </p>
+      <h1
+        id="name-title"
+        class="text-8xl lg:text-9xl font-fruktur uppercase text-secondary"
+      >
+        Mathis Guellati
+      </h1>
 
-        <button
-          id="death-button"
-          class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
+      <button
+        id="death-button"
+        class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
+      >
+        <img
+          src={Death.src}
+          alt="Ne pas cliquer"
+          class="w-8 h-8 lg:w-10 lg:h-10"
+        />
+        <p
+          class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden"
         >
-          <img src={Death.src} alt="Ne pas cliquer" class="w-8 h-8 lg:w-10 lg:h-10" />
-          <p
-            class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden"
-          >
-            Ne cliquer pas
-          </p>
-        </button>
-      </div>
-      <div class="absolute bottom-20 left-1/2 flex transform -translate-x-1/2 space-x-5">
-        <a href="https://github.com/geetix-prog" target="_blank">
-          <img
-            src={Git.src}
-            alt="GitHub"
-            class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
-          />
-        </a>
-        <a href="https://www.linkedin.com/in/mathis-guellati-631502329/" target="_blank">
-          <img
-            src={Lk.src}
-            alt="LinkedIn"
-            class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
-          />
-        </a>
-      </div>
+          Ne cliquer pas
+        </p>
+      </button>
+    </div>
+    <div
+      class="absolute bottom-20 left-1/2 flex transform -translate-x-1/2 space-x-5"
+    >
+      <a href="https://github.com/geetix-prog" target="_blank">
+        <img
+          src={Git.src}
+          alt="GitHub"
+          class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
+        />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/mathis-guellati-631502329/"
+        target="_blank"
+      >
+        <img
+          src={Lk.src}
+          alt="LinkedIn"
+          class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
+        />
+      </a>
+    </div>
+    <img
+      src={Hero.src}
+      alt="Hero Image"
+      class="w-full h-full object-cover absolute -z-10"
+    />
+  </div>
+  <div
+    class="h-screen flex flex-col bg-[#262525] items-center justify-center text-secondary"
+  >
+    <div class="flex items-center w-full justify-start space-x-75">
       <img
-        src={Hero.src}
-        alt="Hero Image"
-        class="w-full h-full object-cover absolute -z-10"
+        src={Me.src}
+        alt="Photo de Mathis Guellati"
+        class="py-3 pr-3 border-4 border-l-0 border-secondary rounded-r-3xl"
       />
+      <div class="flex flex-col space-y-20 items-center w-150">
+        <h2 class="text-5xl font-fruktur uppercase">qui suis-je ?</h2>
+        <div class="flex flex-col w-200 space-y-15">
+          <p class="font-grotesk text-lg">
+            Moi c’est Mathis ! Je suis actuellement en 2ème année de BUT MMI à
+            Montbéliard et je souhaite évoluer vers le métier de développeur web
+            créatif.
+          </p>
+          <p class="font-grotesk text-lg">
+            J’aime donner vie à des idées en mêlant développement web, design et
+            communication digitale. Je consacre mon temps à coder, expérimenter
+            et explorer de nouvelles tendances pour créer des projets qui
+            allient esthétique et efficacité.
+          </p>
+          <p class="font-grotesk text-lg">
+            Au-delà de mes études, je suis passionné par la création visuelle et
+            les projets personnels : j’aime tester de nouveaux outils, imaginer
+            des concepts originaux et m’inspirer de ce qui m’entoure pour
+            nourrir ma créativité.
+          </p>
+        </div>
+        <a
+          href="/docs/CV-Mathis-Guellati.pdf"
+          download="CV-Mathis-Guellati.pdf"
+          class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300"
+        >
+          <p class="text-primary font-grotesk font-bold text-xl">Télécharger mon CV</p>
+          <img src={Arrow.src} alt="Flèche" class="inline-block ml-2" />
+        </a>
+      </div>
     </div>
   </div>
-  <div class="h-screen w-full bg-gray-900 flex items-center justify-center">
-    <h2 class="text-6xl text-white">Section suivante</h2>
+  <div class="relative">
+    <p
+      class="font-grotesk text-secondary absolute bottom-20 left-1/2 transform -translate-x-1/2"
+    >
+      « Si déboguer consiste à enlever des bugs, alors programmer doit consister
+      à les mettre. » — Edsger Dijkstra
+    </p>
   </div>
+</Layout>
 
-  <script>
-    const deathButton = document.getElementById("death-button");
-    const nameTitle = document.getElementById("name-title");
-    const heroSection = document.getElementById("hero-section");
+<script>
+  const deathButton = document.getElementById("death-button");
+  const nameTitle = document.getElementById("name-title");
+  const heroSection = document.getElementById("hero-section");
 
-    let currentContainer: HTMLDivElement | null = null;
-    const originalText = nameTitle?.textContent || "";
+  let currentContainer: HTMLDivElement | null = null;
+  const originalText = nameTitle?.textContent || "";
 
-    deathButton?.addEventListener("click", () => {
-      if (!nameTitle || !heroSection) return;
+  deathButton?.addEventListener("click", () => {
+    if (!nameTitle || !heroSection) return;
 
-      if (currentContainer) {
-        currentContainer.remove();
-        currentContainer = null;
-      }
+    if (currentContainer) {
+      currentContainer.remove();
+      currentContainer = null;
+    }
 
-      nameTitle.textContent = originalText;
-      nameTitle.style.opacity = "1";
+    nameTitle.textContent = originalText;
+    nameTitle.style.opacity = "1";
 
-      const rect = nameTitle.getBoundingClientRect();
-      const text = nameTitle.textContent || "";
-      const letters = text.split("");
+    const rect = nameTitle.getBoundingClientRect();
+    const text = nameTitle.textContent || "";
+    const letters = text.split("");
 
-      nameTitle.innerHTML = "";
-      const letterElements: HTMLElement[] = [];
+    nameTitle.innerHTML = "";
+    const letterElements: HTMLElement[] = [];
 
-      letters.forEach((letter) => {
-        const span = document.createElement("span");
-        span.textContent = letter;
-        span.style.display = "inline-block";
-        nameTitle.appendChild(span);
-        letterElements.push(span);
-      });
+    letters.forEach((letter) => {
+      const span = document.createElement("span");
+      span.textContent = letter;
+      span.style.display = "inline-block";
+      nameTitle.appendChild(span);
+      letterElements.push(span);
+    });
 
-      const container = document.createElement("div");
-      container.style.position = "absolute";
-      container.style.top = "0";
-      container.style.left = "0";
-      container.style.width = "100%";
-      container.style.height = "100%";
-      container.style.pointerEvents = "none";
-      container.style.zIndex = "10";
-      heroSection.appendChild(container);
+    const container = document.createElement("div");
+    container.style.position = "absolute";
+    container.style.top = "0";
+    container.style.left = "0";
+    container.style.width = "100%";
+    container.style.height = "100%";
+    container.style.pointerEvents = "none";
+    container.style.zIndex = "10";
+    heroSection.appendChild(container);
 
-      currentContainer = container;
+    currentContainer = container;
 
-      const heroRect = heroSection.getBoundingClientRect();
+    const heroRect = heroSection.getBoundingClientRect();
 
-      letterElements.forEach((letterEl, index) => {
-        const letter = letterEl.textContent;
-        if (letter === " ") return;
+    letterElements.forEach((letterEl, index) => {
+      const letter = letterEl.textContent;
+      if (letter === " ") return;
 
-        const letterRect = letterEl.getBoundingClientRect();
-        const startX = letterRect.left - heroRect.left + letterRect.width / 2;
-        const startY = letterRect.top - heroRect.top + letterRect.height / 2;
+      const letterRect = letterEl.getBoundingClientRect();
+      const startX = letterRect.left - heroRect.left + letterRect.width / 2;
+      const startY = letterRect.top - heroRect.top + letterRect.height / 2;
 
-        const span = document.createElement("span");
-        span.textContent = letter;
-        span.className = "font-fruktur uppercase text-secondary";
-        span.style.position = "absolute";
-        span.style.fontSize = "9rem";
-        span.style.left = `${startX}px`;
-        span.style.top = `${startY}px`;
-        span.style.transform = "translate(-50%, -50%)";
+      const span = document.createElement("span");
+      span.textContent = letter;
+      span.className = "font-fruktur uppercase text-secondary";
+      span.style.position = "absolute";
+      span.style.fontSize = "9rem";
+      span.style.left = `${startX}px`;
+      span.style.top = `${startY}px`;
+      span.style.transform = "translate(-50%, -50%)";
 
-        const angle = Math.random() * Math.PI * 2;
-        const velocity = 800 + Math.random() * 1200;
-        const vx = Math.cos(angle) * velocity;
-        const vy = Math.sin(angle) * velocity - 400;
-        const rotationSpeed = (Math.random() - 0.5) * 15;
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = 800 + Math.random() * 1200;
+      const vx = Math.cos(angle) * velocity;
+      const vy = Math.sin(angle) * velocity - 400;
+      const rotationSpeed = (Math.random() - 0.5) * 15;
 
-        container.appendChild(span);
+      container.appendChild(span);
 
-        let x = startX;
-        let y = startY;
-        let velX = vx;
-        let velY = vy;
-        let rot = 0;
-        const gravity = 1500;
-        const friction = 0.8;
-        let isAnimating = true;
+      let x = startX;
+      let y = startY;
+      let velX = vx;
+      let velY = vy;
+      let rot = 0;
+      const gravity = 1500;
+      const friction = 0.8;
+      let isAnimating = true;
 
-        const animate = () => {
-          if (!isAnimating) return;
+      const animate = () => {
+        if (!isAnimating) return;
 
-          velY += gravity * 0.016;
+        velY += gravity * 0.016;
 
-          x += velX * 0.016;
-          y += velY * 0.016;
-          rot += rotationSpeed;
+        x += velX * 0.016;
+        y += velY * 0.016;
+        rot += rotationSpeed;
 
-          const margin = 50;
-          const heroWidth = heroSection.offsetWidth;
-          const heroHeight = heroSection.offsetHeight;
+        const margin = 50;
+        const heroWidth = heroSection.offsetWidth;
+        const heroHeight = heroSection.offsetHeight;
 
-          if (x < margin) {
-            x = margin;
-            velX = Math.abs(velX) * friction;
-          } else if (x > heroWidth - margin) {
-            x = heroWidth - margin;
-            velX = -Math.abs(velX) * friction;
-          }
+        if (x < margin) {
+          x = margin;
+          velX = Math.abs(velX) * friction;
+        } else if (x > heroWidth - margin) {
+          x = heroWidth - margin;
+          velX = -Math.abs(velX) * friction;
+        }
 
-          if (y < margin) {
-            y = margin;
-            velY = Math.abs(velY) * friction;
-          } else if (y > heroHeight - margin) {
-            y = heroHeight - margin;
-            velY = -Math.abs(velY) * friction;
-            velX *= friction;
-          }
+        if (y < margin) {
+          y = margin;
+          velY = Math.abs(velY) * friction;
+        } else if (y > heroHeight - margin) {
+          y = heroHeight - margin;
+          velY = -Math.abs(velY) * friction;
+          velX *= friction;
+        }
 
-          if (
-            Math.abs(velX) < 5 &&
-            Math.abs(velY) < 5 &&
-            y > heroHeight - margin - 10
-          ) {
-            isAnimating = false;
-            span.style.left = `${x}px`;
-            span.style.top = `${y}px`;
-            span.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
-            return;
-          }
-
+        if (
+          Math.abs(velX) < 5 &&
+          Math.abs(velY) < 5 &&
+          y > heroHeight - margin - 10
+        ) {
+          isAnimating = false;
           span.style.left = `${x}px`;
           span.style.top = `${y}px`;
           span.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+          return;
+        }
 
-          requestAnimationFrame(animate);
-        };
+        span.style.left = `${x}px`;
+        span.style.top = `${y}px`;
+        span.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
 
         requestAnimationFrame(animate);
-      });
+      };
 
-      nameTitle.style.opacity = "0";
+      requestAnimationFrame(animate);
     });
 
-    setTimeout(() => {
-      const firstPage = document.getElementById("first-page");
-      if (firstPage) {
-        firstPage.style.transition = "transform 1s";
-        firstPage.style.transform = "translateY(-100%)";
-        firstPage.style.pointerEvents = "none";
-        setTimeout(() => {
-          firstPage.remove();
-        }, 500);
-      }
-    }, 3000);
-  </script></Layout
->
+    nameTitle.style.opacity = "0";
+  });
+
+  setTimeout(() => {
+    const firstPage = document.getElementById("first-page");
+    if (firstPage) {
+      firstPage.style.transition = "transform 1s";
+      firstPage.style.transform = "translateY(-100%)";
+      firstPage.style.pointerEvents = "none";
+      setTimeout(() => {
+        firstPage.remove();
+      }, 500);
+    }
+  }, 3000);
+</script>
