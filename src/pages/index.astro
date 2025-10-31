@@ -10,113 +10,119 @@ import Arrow from "../assets/icons/arrow.svg";
 ---
 
 <Layout>
-  <FirstPage />
-  <div
-    id="hero-section"
-    class="h-screen w-full overflow-hidden flex items-center justify-center relative"
-  >
-    <div class="text-center space-y-20">
-      <p class="text-secondary text-2xl lg:text-4xl font-grotesk">
-        Développeur créatif
-      </p>
-      <h1
-        id="name-title"
-        class="text-8xl lg:text-9xl font-fruktur uppercase text-secondary"
+  <!-- <FirstPage /> -->
+  <div class="relative">
+    <div class="sticky top-0 z-0 h-screen">
+      <div
+        id="hero-section"
+        class="h-screen w-full overflow-hidden flex items-center justify-center relative"
       >
-        Mathis Guellati
-      </h1>
+        <div class="text-center space-y-20">
+          <p class="text-secondary text-2xl lg:text-4xl font-grotesk">
+            Développeur créatif
+          </p>
+          <h1
+            id="name-title"
+            class="text-8xl lg:text-9xl font-fruktur uppercase text-secondary"
+          >
+            Mathis Guellati
+          </h1>
 
-      <button
-        id="death-button"
-        class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
-      >
-        <img
-          src={Death.src}
-          alt="Ne pas cliquer"
-          class="w-8 h-8 lg:w-10 lg:h-10"
-        />
-        <p
-          class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden"
-        >
-          Ne cliquer pas
-        </p>
-      </button>
-    </div>
-    <div
-      class="absolute bottom-20 left-1/2 flex transform -translate-x-1/2 space-x-5"
-    >
-      <a href="https://github.com/geetix-prog" target="_blank">
-        <img
-          src={Git.src}
-          alt="GitHub"
-          class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
-        />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/mathis-guellati-631502329/"
-        target="_blank"
-      >
-        <img
-          src={Lk.src}
-          alt="LinkedIn"
-          class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
-        />
-      </a>
-    </div>
-    <img
-      src={Hero.src}
-      alt="Hero Image"
-      class="w-full h-full object-cover absolute -z-10"
-    />
-  </div>
-  <div
-    class="h-screen flex flex-col bg-[#262525] items-center justify-center text-secondary"
-  >
-    <div class="flex items-center w-full justify-start space-x-75">
-      <img
-        src={Me.src}
-        alt="Photo de Mathis Guellati"
-        class="py-3 pr-3 border-4 border-l-0 border-secondary rounded-r-3xl"
-      />
-      <div class="flex flex-col space-y-20 items-center w-150">
-        <h2 class="text-5xl font-fruktur uppercase">qui suis-je ?</h2>
-        <div class="flex flex-col w-200 space-y-15">
-          <p class="font-grotesk text-lg">
-            Moi c’est Mathis ! Je suis actuellement en 2ème année de BUT MMI à
-            Montbéliard et je souhaite évoluer vers le métier de développeur web
-            créatif.
-          </p>
-          <p class="font-grotesk text-lg">
-            J’aime donner vie à des idées en mêlant développement web, design et
-            communication digitale. Je consacre mon temps à coder, expérimenter
-            et explorer de nouvelles tendances pour créer des projets qui
-            allient esthétique et efficacité.
-          </p>
-          <p class="font-grotesk text-lg">
-            Au-delà de mes études, je suis passionné par la création visuelle et
-            les projets personnels : j’aime tester de nouveaux outils, imaginer
-            des concepts originaux et m’inspirer de ce qui m’entoure pour
-            nourrir ma créativité.
-          </p>
+          <button
+            id="death-button"
+            class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
+          >
+            <img
+              src={Death.src}
+              alt="Ne pas cliquer"
+              class="w-8 h-8 lg:w-10 lg:h-10"
+            />
+            <p
+              class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden"
+            >
+              Ne cliquer pas
+            </p>
+          </button>
         </div>
-        <a
-          href="/docs/CV-Mathis-Guellati.pdf"
-          download="CV-Mathis-Guellati.pdf"
-          class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300"
+        <div
+          class="absolute bottom-20 left-1/2 flex transform -translate-x-1/2 space-x-5"
         >
-          <p class="text-primary font-grotesk font-bold text-xl">Télécharger mon CV</p>
-          <img src={Arrow.src} alt="Flèche" class="inline-block ml-2" />
-        </a>
+          <a href="https://github.com/geetix-prog" target="_blank">
+            <img
+              src={Git.src}
+              alt="GitHub"
+              class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
+            />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/mathis-guellati-631502329/"
+            target="_blank"
+          >
+            <img
+              src={Lk.src}
+              alt="LinkedIn"
+              class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
+            />
+          </a>
+        </div>
+        <img
+          src={Hero.src}
+          alt="Hero Image"
+          class="w-full h-full object-cover absolute -z-10"
+        />
       </div>
     </div>
-  </div>
-  <div class="relative">
-    <p
-      class="font-grotesk text-secondary absolute bottom-20 left-1/2 transform -translate-x-1/2"
+
+    <div
+      class="relative z-10 h-screen flex flex-col bg-[#262525] items-center justify-center space-y-20 text-secondary"
     >
-      « Si déboguer consiste à enlever des bugs, alors programmer doit consister
-      à les mettre. » — Edsger Dijkstra
-    </p>
+      <div class="flex items-center align-middle w-full justify-center lg:justify-start space-x-75">
+        <img
+          src={Me.src}
+          alt="Photo de Mathis Guellati"
+          class="py-3 pr-3 border-4 border-l-0 border-secondary rounded-r-3xl hidden md:block"
+        />
+        <div class="flex flex-col space-y-20 items-center w-150">
+          <h2 class="text-4xl lg:text-5xl font-fruktur uppercase">qui suis-je ?</h2>
+          <div class="flex flex-col w-100 lg:w-200 space-y-15">
+            <p class="font-grotesk text-lg">
+              Moi c'est Mathis ! Je suis actuellement en 2ème année de BUT MMI à
+              Montbéliard et je souhaite évoluer vers le métier de développeur web
+              créatif.
+            </p>
+            <p class="font-grotesk text-lg">
+              J'aime donner vie à des idées en mêlant développement web, design et
+              communication digitale. Je consacre mon temps à coder, expérimenter
+              et explorer de nouvelles tendances pour créer des projets qui
+              allient esthétique et efficacité.
+            </p>
+            <p class="font-grotesk text-lg">
+              Au-delà de mes études, je suis passionné par la création visuelle et
+              les projets personnels : j'aime tester de nouveaux outils, imaginer
+              des concepts originaux et m'inspirer de ce qui m'entoure pour
+              nourrir ma créativité.
+            </p>
+          </div>
+
+          <a href="/docs/CV-Mathis-Guellati.pdf"
+            download="CV-Mathis-Guellati.pdf"
+            class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300"
+          >
+            <p class="text-primary font-grotesk font-bold text-xl">Télécharger mon CV</p>
+            <img src={Arrow.src} alt="Flèche" class="inline-block ml-2" />
+          </a>
+        </div>
+      </div>
+      <div class="lg:absolute lg:bottom-20 lg:left-1/2 lg:transform lg:-translate-x-1/2 relative z-10 w-100 lg:w-full justify-center">
+        <p
+          class="font-grotesk text-secondary text-[16px] text-center lg:w-full"
+        >
+          « Si déboguer consiste à enlever des bugs, alors programmer doit consister
+          à les mettre. » — Edsger Dijkstra
+        </p>
+      </div>
+    </div>
   </div>
 </Layout>
 
