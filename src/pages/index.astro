@@ -172,8 +172,8 @@ const projets = await allProjets();
               loading="lazy"
               quality={90}
               format="webp"
-              width={24}
-              height={24}
+              width={15}
+              height={15}
               aria-hidden="true"
             />
           </a>
@@ -203,7 +203,6 @@ const projets = await allProjets();
       Mes projets récents
     </h2>
 
-    <!-- Carousel mobile optimisé -->
     <div
       class="lg:hidden w-full overflow-hidden"
       role="region"
@@ -274,7 +273,6 @@ const projets = await allProjets();
       </div>
     </div>
 
-    <!-- Grille desktop -->
     <div
       class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full lg:w-4/5"
     >
@@ -286,6 +284,25 @@ const projets = await allProjets();
         ))
       }
     </div>
+    <a
+      href="/projects"
+      class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
+    >
+      <span class="text-primary font-grotesk font-bold text-xl">
+        Voir plus
+      </span>
+      <Image
+        src={Arrow}
+        alt=""
+        class="inline-block ml-2"
+        loading="lazy"
+        quality={90}
+        format="webp"
+        width={15}
+        height={15}
+        aria-hidden="true"
+      />
+    </a>
   </section>
 
   <section
