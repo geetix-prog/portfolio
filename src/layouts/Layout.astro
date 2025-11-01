@@ -19,7 +19,7 @@ import Footer from "../components/Footer.astro";
     <div class="crosshair-line line-vertical" id="lineV"></div>
     <div class="custom-cursor" id="cursor"></div>
     <slot />
-    <Footer/>
+    <Footer />
   </body>
 </html>
 
@@ -39,12 +39,17 @@ import Footer from "../components/Footer.astro";
     }
   }
 
-  .crosshair-line {
+  /* Empêche le curseur et les lignes de bloquer les interactions */
+  .crosshair-line,
+  .custom-cursor {
     position: fixed;
-    background: rgba(255, 255, 255, 0.15);
-    pointer-events: none;
-    z-index: 99999;
+    pointer-events: none; /* essentiel pour rétablir les hover */
+    z-index: 100000;
     transition: opacity 0.3s;
+  }
+
+  .crosshair-line {
+    background: rgba(255, 255, 255, 0.15);
     display: none;
   }
 
@@ -67,20 +72,18 @@ import Footer from "../components/Footer.astro";
   }
 
   .custom-cursor {
-    position: fixed;
     width: 20px;
     height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 50%;
-    pointer-events: none;
-    z-index: 100000;
     transform: translate(-50%, -50%);
     transition:
       width 0.25s ease,
       height 0.25s ease,
       background-color 0.3s ease,
       border 0.3s ease,
-      transform 0.15s ease;
+      transform 0.15s ease,
+      opacity 0.3s;
     display: none;
   }
 
@@ -150,7 +153,6 @@ import Footer from "../components/Footer.astro";
     const hoverables = document.querySelectorAll(
       "a, button, img, [data-hover]"
     );
-
     hoverables.forEach((el) => {
       el.addEventListener("mouseenter", () => {
         cursor.classList.add("hover");

@@ -19,9 +19,10 @@ const projets = await allProjets();
   <!-- <FirstPage id="first-page" /> -->
   <div class="relative">
     <div class="sticky top-0 z-0 h-screen">
-      <div
+      <section
         id="hero-section"
         class="h-screen w-full overflow-hidden flex items-center justify-center relative"
+        aria-label="Section d'accueil"
       >
         <div class="text-center space-y-20">
           <p class="text-secondary text-2xl lg:text-4xl font-grotesk">
@@ -37,62 +38,83 @@ const projets = await allProjets();
           <button
             id="death-button"
             class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
+            aria-label="Animation interactive - Ne pas cliquer"
           >
             <Image
               src={Death}
-              alt="Ne pas cliquer"
+              alt=""
               class="w-8 h-8 lg:w-10 lg:h-10"
               loading="eager"
               width={40}
               height={40}
+              aria-hidden="true"
             />
-            <p
+            <span
               class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden"
+              aria-hidden="true"
             >
               Ne cliquer pas
-            </p>
+            </span>
           </button>
         </div>
-        <div
+
+        <nav
           class="absolute bottom-20 left-1/2 flex transform -translate-x-1/2 space-x-5"
+          aria-label="Réseaux sociaux"
         >
-          <a href="https://github.com/geetix-prog" target="_blank">
+          <a
+            href="https://github.com/geetix-prog"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visitez mon profil GitHub (s'ouvre dans un nouvel onglet)"
+          >
             <Image
               src={Git}
-              alt="GitHub"
+              alt=""
               class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
               loading="lazy"
               width={60}
               height={60}
+              aria-hidden="true"
             />
           </a>
 
           <a
             href="https://www.linkedin.com/in/mathis-guellati-631502329/"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visitez mon profil LinkedIn (s'ouvre dans un nouvel onglet)"
           >
             <Image
               src={Lk}
-              alt="LinkedIn"
+              alt=""
               class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
               loading="lazy"
+              quality={90}
+              format="webp"
               width={60}
               height={60}
+              aria-hidden="true"
             />
           </a>
-        </div>
+        </nav>
+
         <Image
           src={Hero}
-          alt="Hero Image"
+          alt="Image d'arrière-plan représentant une ambiance créative"
           class="w-full h-full object-cover absolute -z-10"
           loading="eager"
-          quality={80}
+          quality={40}
+          format="webp"
+          widths={[375, 640, 768, 1024]}
+          sizes="100vw"
         />
-      </div>
+      </section>
     </div>
 
-    <div
-      class="relative z-10 lg:h-screen flex flex-col bg-[#262525] items-center justify-center space-y-20 text-secondary"
+    <section
+      class="relative z-10 lg:h-screen flex flex-col bg-[#262525] items-center justify-center space-y-20 text-secondary py-20 lg:py-0"
+      aria-labelledby="about-heading"
     >
       <div
         class="flex items-center align-middle w-full justify-center lg:justify-start space-x-75"
@@ -102,10 +124,16 @@ const projets = await allProjets();
           alt="Photo de Mathis Guellati"
           class="py-3 pr-3 border-4 border-l-0 border-secondary rounded-r-3xl hidden md:block"
           loading="lazy"
-          quality={85}
+          quality={70}
+          format="webp"
+          width={400}
+          height={400}
         />
-        <div class="flex flex-col space-y-20 mt-10 items-center w-150">
-          <h2 class="text-4xl lg:text-5xl font-fruktur uppercase">
+        <div class="flex flex-col space-y-20 mt-10 items-center w-150 px-4">
+          <h2
+            id="about-heading"
+            class="text-4xl lg:text-5xl font-fruktur uppercase"
+          >
             qui suis-je ?
           </h2>
           <div class="flex flex-col w-100 lg:w-200 space-y-15">
@@ -131,90 +159,141 @@ const projets = await allProjets();
           <a
             href="/docs/CV-Mathis-Guellati.pdf"
             download="CV-Mathis-Guellati.pdf"
-            class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300"
+            class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
+            aria-label="Télécharger mon CV au format PDF"
           >
-            <p class="text-primary font-grotesk font-bold text-xl">
+            <span class="text-primary font-grotesk font-bold text-xl">
               Télécharger mon CV
-            </p>
+            </span>
             <Image
               src={Arrow}
-              alt="Flèche"
+              alt=""
               class="inline-block ml-2"
               loading="lazy"
+              quality={90}
+              format="webp"
               width={24}
               height={24}
+              aria-hidden="true"
             />
           </a>
         </div>
       </div>
       <div
-        class="lg:absolute lg:bottom-20 lg:left-1/2 lg:transform lg:-translate-x-1/2 relative z-10 w-100 lg:w-full justify-center"
+        class="lg:absolute lg:bottom-20 lg:left-1/2 lg:transform lg:-translate-x-1/2 relative z-10 w-100 lg:w-full justify-center px-4"
       >
-        <p
+        <blockquote
           class="font-grotesk text-secondary text-[16px] text-center lg:w-full"
         >
           « Si déboguer consiste à enlever des bugs, alors programmer doit
-          consister à les mettre. » — Edsger Dijkstra
-        </p>
+          consister à les mettre. » — <cite>Edsger Dijkstra</cite>
+        </blockquote>
       </div>
-    </div>
+    </section>
   </div>
-  <div class="flex flex-col items-center mt-40 space-y-24 px-4">
+
+  <section
+    class="flex flex-col items-center mt-40 space-y-24 px-4"
+    aria-labelledby="projects-heading"
+  >
     <h2
+      id="projects-heading"
       class="text-4xl text-secondary lg:text-5xl font-fruktur uppercase text-center"
     >
       Mes projets récents
     </h2>
 
-    <div class="lg:hidden w-full relative overflow-hidden px-2">
+    <!-- Carousel mobile optimisé -->
+    <div
+      class="lg:hidden w-full overflow-hidden"
+      role="region"
+      aria-label="Carousel de projets"
+    >
       <div
         id="carousel-container"
         class="flex transition-transform duration-500 ease-in-out"
+        aria-live="polite"
       >
         {
-          projets.slice(0, 3).map((p) => (
-            <div class="min-w-full px-1">
-              <ProjetsHome {...p} />
-            </div>
+          projets.slice(0, 3).map((p, index) => (
+            <article
+              class="shrink-0 flex justify-center"
+              style={`width: 100%; padding-left: ${index === 0 ? "10%" : "0"}; padding-right: ${index === 2 ? "10%" : "0"};`}
+              aria-label={`Projet ${index + 1} sur 3`}
+            >
+              <div class="w-4/5">
+                <ProjetsHome {...p} />
+              </div>
+            </article>
           ))
         }
       </div>
 
-      <div class="flex justify-center gap-2 mt-6">
-        {
-          projets
-            .slice(0, 3)
-            .map((_, index) => (
-              <button
-                class="carousel-dot w-3 h-3 rounded-full bg-secondary opacity-30 transition-opacity"
-                data-index={index}
-              />
-            ))
-        }
-      </div>
+      <div
+        class="flex justify-center items-center gap-4 mt-6"
+        role="group"
+        aria-label="Contrôles du carousel"
+      >
+        <button
+          id="carousel-prev"
+          class="bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform font-bold text-xl focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
+          aria-label="Projet précédent"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
 
-      <button
-        id="carousel-prev"
-        class="absolute left-2 top-1/2 -translate-y-1/2 bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
-      >
-        ←
-      </button>
-      <button
-        id="carousel-next"
-        class="absolute right-2 top-1/2 -translate-y-1/2 bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
-      >
-        →
-      </button>
+        <div
+          class="flex gap-2"
+          role="tablist"
+          aria-label="Navigation directe entre projets"
+        >
+          {
+            projets
+              .slice(0, 3)
+              .map((_, index) => (
+                <button
+                  class="carousel-dot w-3 h-3 rounded-full bg-secondary transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                  style={index === 0 ? "opacity: 1;" : "opacity: 0.3;"}
+                  data-index={index}
+                  role="tab"
+                  aria-label={`Aller au projet ${index + 1}`}
+                  aria-selected={index === 0 ? "true" : "false"}
+                  tabindex={index === 0 ? 0 : -1}
+                />
+              ))
+          }
+        </div>
+
+        <button
+          id="carousel-next"
+          class="bg-secondary text-primary w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform font-bold text-xl focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
+          aria-label="Projet suivant"
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
     </div>
 
+    <!-- Grille desktop -->
     <div
       class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full lg:w-4/5"
     >
-      {projets.slice(0, 3).map((p) => <ProjetsHome {...p} />)}
+      {
+        projets.slice(0, 3).map((p) => (
+          <article>
+            <ProjetsHome {...p} />
+          </article>
+        ))
+      }
     </div>
-  </div>
-  <div class="flex flex-col items-center mt-40 space-y-24 px-4">
+  </section>
+
+  <section
+    class="flex flex-col items-center mt-40 mb-40 space-y-24 px-4"
+    aria-labelledby="skills-heading"
+  >
     <h2
+      id="skills-heading"
       class="text-4xl text-secondary lg:text-5xl font-fruktur uppercase text-center"
     >
       Mon univers d'outils
@@ -222,41 +301,62 @@ const projets = await allProjets();
     <div
       id="competence-container"
       class="bg-tertiary rounded-4xl w-full lg:w-4/5 h-[400px] lg:h-[500px] relative overflow-hidden"
+      role="region"
+      aria-label="Compétences techniques interactives"
     >
       {
         comp.map((c, index) => (
           <div
             class="competence-item absolute flex space-x-2 p-2 rounded-xl bg-[#797979] transition-all duration-300 text-sm lg:text-base"
             data-index={index}
+            role="listitem"
+            aria-label={`Compétence: ${c.nom}`}
           >
             <img
               src={c.img}
-              alt={c.nom}
+              alt=""
               class="w-8 h-8 lg:w-10 lg:h-10"
               loading="lazy"
+              decoding="async"
               width="40"
               height="40"
+              aria-hidden="true"
             />
-            <p class="font-grotesk text-secondary text-lg lg:text-2xl whitespace-nowrap">
+            <span class="font-grotesk text-secondary text-lg lg:text-2xl whitespace-nowrap">
               {c.nom}
-            </p>
+            </span>
           </div>
         ))
       }
     </div>
-  </div>
+  </section>
 </Layout>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
 
 <script>
   const deathButton = document.getElementById("death-button");
   const nameTitle = document.getElementById("name-title");
   const heroSection = document.getElementById("hero-section");
-  const container = document.getElementById("competence-container");
+  const competenceContainer = document.getElementById("competence-container");
   const items = document.querySelectorAll(".competence-item");
 
   let currentContainer: HTMLDivElement | null = null;
   const originalText = nameTitle?.textContent || "";
 
+  // Animation death button optimisée
   deathButton?.addEventListener("click", () => {
     if (!nameTitle || !heroSection) return;
 
@@ -278,21 +378,23 @@ const projets = await allProjets();
       const span = document.createElement("span");
       span.textContent = letter;
       span.style.display = "inline-block";
+      span.setAttribute("aria-hidden", "true");
       nameTitle.appendChild(span);
       letterElements.push(span);
     });
 
-    const container = document.createElement("div");
-    container.style.position = "absolute";
-    container.style.top = "0";
-    container.style.left = "0";
-    container.style.width = "100%";
-    container.style.height = "100%";
-    container.style.pointerEvents = "none";
-    container.style.zIndex = "10";
-    heroSection.appendChild(container);
+    const animContainer = document.createElement("div");
+    animContainer.style.position = "absolute";
+    animContainer.style.top = "0";
+    animContainer.style.left = "0";
+    animContainer.style.width = "100%";
+    animContainer.style.height = "100%";
+    animContainer.style.pointerEvents = "none";
+    animContainer.style.zIndex = "10";
+    animContainer.setAttribute("aria-hidden", "true");
+    heroSection.appendChild(animContainer);
 
-    currentContainer = container;
+    currentContainer = animContainer;
 
     const heroRect = heroSection.getBoundingClientRect();
     const isMobile = window.innerWidth < 768;
@@ -314,6 +416,7 @@ const projets = await allProjets();
       span.style.left = `${startX}px`;
       span.style.top = `${startY}px`;
       span.style.transform = "translate(-50%, -50%)";
+      span.style.willChange = "transform";
 
       const angle = Math.random() * Math.PI * 2;
       const velocity = 800 + Math.random() * 1200;
@@ -321,7 +424,7 @@ const projets = await allProjets();
       const vy = Math.sin(angle) * velocity - 400;
       const rotationSpeed = (Math.random() - 0.5) * 15;
 
-      container.appendChild(span);
+      animContainer.appendChild(span);
 
       let x = startX;
       let y = startY;
@@ -333,10 +436,12 @@ const projets = await allProjets();
       let isAnimating = true;
 
       const animate = () => {
-        if (!isAnimating) return;
+        if (!isAnimating) {
+          span.style.willChange = "auto";
+          return;
+        }
 
         velY += gravity * 0.016;
-
         x += velX * 0.016;
         y += velY * 0.016;
         rot += rotationSpeed;
@@ -371,6 +476,7 @@ const projets = await allProjets();
           span.style.left = `${x}px`;
           span.style.top = `${y}px`;
           span.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+          span.style.willChange = "auto";
           return;
         }
 
@@ -387,7 +493,8 @@ const projets = await allProjets();
     nameTitle.style.opacity = "0";
   });
 
-  if (container && items.length > 0) {
+  // Animation compétences optimisée
+  if (competenceContainer && items.length > 0) {
     const isMobile = window.innerWidth < 1024;
     const positions = new Map();
     const sizes = new Map();
@@ -412,14 +519,15 @@ const projets = await allProjets();
 
           sizes.set(index, { width: actualWidth, height: actualHeight });
 
-          let x, y;
+          const maxX = competenceContainer.offsetWidth - actualWidth - 16;
+          const maxY = competenceContainer.offsetHeight - actualHeight - 16;
+
+          let x: number = Math.random() * maxX + 8;
+          let y: number = Math.random() * maxY + 8;
           let attempts = 0;
           const maxAttempts = 100;
 
-          do {
-            const maxX = container.offsetWidth - actualWidth - 16;
-            const maxY = container.offsetHeight - actualHeight - 16;
-
+          while (attempts < maxAttempts) {
             x = Math.random() * maxX + 8;
             y = Math.random() * maxY + 8;
 
@@ -435,8 +543,8 @@ const projets = await allProjets();
               );
             });
 
-            if (!overlaps || attempts >= maxAttempts) break;
-          } while (true);
+            if (!overlaps) break;
+          }
 
           htmlItem.style.left = `${x}px`;
           htmlItem.style.top = `${y}px`;
@@ -477,8 +585,10 @@ const projets = await allProjets();
               let newY = pos.y + vel.vy * 0.016;
 
               const margin = 8;
-              const maxX = container.offsetWidth - size.width - margin;
-              const maxY = container.offsetHeight - size.height - margin;
+              const maxX =
+                competenceContainer.offsetWidth - size.width - margin;
+              const maxY =
+                competenceContainer.offsetHeight - size.height - margin;
 
               if (newX < margin || newX > maxX) {
                 vel.vx *= -1;
@@ -539,81 +649,91 @@ const projets = await allProjets();
     initPositions();
 
     if (!isMobile) {
-      container.addEventListener("mousemove", (e) => {
-        const containerRect = container.getBoundingClientRect();
-        const mouseX = e.clientX - containerRect.left;
-        const mouseY = e.clientY - containerRect.top;
+      let rafId: number | null = null;
 
-        items.forEach((item, index) => {
-          const htmlItem = item as HTMLElement;
-          const pos = positions.get(index);
-          const size = sizes.get(index);
-          if (!pos || !size) return;
+      competenceContainer.addEventListener("mousemove", (e) => {
+        if (rafId) return;
 
-          const itemCenterX = pos.x + size.width / 2;
-          const itemCenterY = pos.y + size.height / 2;
+        rafId = requestAnimationFrame(() => {
+          const containerRect = competenceContainer.getBoundingClientRect();
+          const mouseX = e.clientX - containerRect.left;
+          const mouseY = e.clientY - containerRect.top;
 
-          const dx = itemCenterX - mouseX;
-          const dy = itemCenterY - mouseY;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          items.forEach((item, index) => {
+            const htmlItem = item as HTMLElement;
+            const pos = positions.get(index);
+            const size = sizes.get(index);
+            if (!pos || !size) return;
 
-          const fleeRadius = 300;
+            const itemCenterX = pos.x + size.width / 2;
+            const itemCenterY = pos.y + size.height / 2;
 
-          if (distance < fleeRadius && distance > 0) {
-            const force = (fleeRadius - distance) / fleeRadius;
-            const pushDistance = force * 120;
+            const dx = itemCenterX - mouseX;
+            const dy = itemCenterY - mouseY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-            const angle = Math.atan2(dy, dx);
-            let pushX = Math.cos(angle) * pushDistance;
-            let pushY = Math.sin(angle) * pushDistance;
+            const fleeRadius = 300;
 
-            let newX = pos.x + pushX;
-            let newY = pos.y + pushY;
+            if (distance < fleeRadius && distance > 0) {
+              const force = (fleeRadius - distance) / fleeRadius;
+              const pushDistance = force * 120;
 
-            items.forEach((otherItem, otherIndex) => {
-              if (index === otherIndex) return;
+              const angle = Math.atan2(dy, dx);
+              let pushX = Math.cos(angle) * pushDistance;
+              let pushY = Math.sin(angle) * pushDistance;
 
-              const otherPos = positions.get(otherIndex);
-              const otherSize = sizes.get(otherIndex);
-              if (!otherPos || !otherSize) return;
+              let newX = pos.x + pushX;
+              let newY = pos.y + pushY;
 
-              const distX =
-                newX + size.width / 2 - (otherPos.x + otherSize.width / 2);
-              const distY =
-                newY + size.height / 2 - (otherPos.y + otherSize.height / 2);
-              const dist = Math.sqrt(distX * distX + distY * distY);
-              const minDist = (size.width + otherSize.width) / 2 + 10;
+              items.forEach((otherItem, otherIndex) => {
+                if (index === otherIndex) return;
 
-              if (dist < minDist && dist > 0) {
-                const pushAngle = Math.atan2(distY, distX);
-                const pushAmount = (minDist - dist) * 0.5;
-                pushX += Math.cos(pushAngle) * pushAmount;
-                pushY += Math.sin(pushAngle) * pushAmount;
-              }
-            });
+                const otherPos = positions.get(otherIndex);
+                const otherSize = sizes.get(otherIndex);
+                if (!otherPos || !otherSize) return;
 
-            newX = pos.x + pushX;
-            newY = pos.y + pushY;
+                const distX =
+                  newX + size.width / 2 - (otherPos.x + otherSize.width / 2);
+                const distY =
+                  newY + size.height / 2 - (otherPos.y + otherSize.height / 2);
+                const dist = Math.sqrt(distX * distX + distY * distY);
+                const minDist = (size.width + otherSize.width) / 2 + 10;
 
-            const margin = 8;
-            const maxX = container.offsetWidth - size.width - margin;
-            const maxY = container.offsetHeight - size.height - margin;
+                if (dist < minDist && dist > 0) {
+                  const pushAngle = Math.atan2(distY, distX);
+                  const pushAmount = (minDist - dist) * 0.5;
+                  pushX += Math.cos(pushAngle) * pushAmount;
+                  pushY += Math.sin(pushAngle) * pushAmount;
+                }
+              });
 
-            newX = Math.max(margin, Math.min(newX, maxX));
-            newY = Math.max(margin, Math.min(newY, maxY));
+              newX = pos.x + pushX;
+              newY = pos.y + pushY;
 
-            positions.set(index, { x: newX, y: newY });
+              const margin = 8;
+              const maxX =
+                competenceContainer.offsetWidth - size.width - margin;
+              const maxY =
+                competenceContainer.offsetHeight - size.height - margin;
 
-            htmlItem.style.left = `${newX}px`;
-            htmlItem.style.top = `${newY}px`;
-            htmlItem.style.transform = `scale(${1 - force * 0.15})`;
-          } else {
-            htmlItem.style.transform = "scale(1)";
-          }
+              newX = Math.max(margin, Math.min(newX, maxX));
+              newY = Math.max(margin, Math.min(newY, maxY));
+
+              positions.set(index, { x: newX, y: newY });
+
+              htmlItem.style.left = `${newX}px`;
+              htmlItem.style.top = `${newY}px`;
+              htmlItem.style.transform = `scale(${1 - force * 0.15})`;
+            } else {
+              htmlItem.style.transform = "scale(1)";
+            }
+          });
+
+          rafId = null;
         });
       });
 
-      container.addEventListener("mouseleave", () => {
+      competenceContainer.addEventListener("mouseleave", () => {
         items.forEach((item) => {
           const htmlItem = item as HTMLElement;
           htmlItem.style.transform = "scale(1)";
@@ -622,6 +742,122 @@ const projets = await allProjets();
     }
   }
 
+  // Carousel optimisé
+  const carouselContainer = document.getElementById("carousel-container");
+  const carouselPrev = document.getElementById("carousel-prev");
+  const carouselNext = document.getElementById("carousel-next");
+  const carouselDots = document.querySelectorAll(".carousel-dot");
+
+  if (carouselContainer && carouselPrev && carouselNext) {
+    let currentIndex = 0;
+    const totalSlides = 3;
+
+    const updateCarousel = () => {
+      const parentWidth = carouselContainer.parentElement?.offsetWidth || 0;
+      carouselContainer.style.transform = `translateX(-${currentIndex * parentWidth}px)`;
+
+      carouselDots.forEach((dot, index) => {
+        const htmlDot = dot as HTMLElement;
+        if (index === currentIndex) {
+          htmlDot.style.opacity = "1";
+          htmlDot.setAttribute("aria-selected", "true");
+          htmlDot.setAttribute("tabindex", "0");
+        } else {
+          htmlDot.style.opacity = "0.3";
+          htmlDot.setAttribute("aria-selected", "false");
+          htmlDot.setAttribute("tabindex", "-1");
+        }
+      });
+
+      const announcer = document.createElement("div");
+      announcer.setAttribute("role", "status");
+      announcer.setAttribute("aria-live", "polite");
+      announcer.className = "sr-only";
+      announcer.textContent = `Projet ${currentIndex + 1} sur ${totalSlides}`;
+      document.body.appendChild(announcer);
+      setTimeout(() => announcer.remove(), 1000);
+    };
+
+    carouselNext.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    });
+
+    carouselPrev.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+
+    carouselDots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        updateCarousel();
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "ArrowLeft" &&
+        document.activeElement?.closest(
+          "#carousel-container, .carousel-dot, #carousel-prev, #carousel-next"
+        )
+      ) {
+        e.preventDefault();
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+      } else if (
+        e.key === "ArrowRight" &&
+        document.activeElement?.closest(
+          "#carousel-container, .carousel-dot, #carousel-prev, #carousel-next"
+        )
+      ) {
+        e.preventDefault();
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carouselContainer.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+      },
+      { passive: true }
+    );
+
+    carouselContainer.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            currentIndex = (currentIndex + 1) % totalSlides;
+          } else {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          }
+          updateCarousel();
+        }
+      },
+      { passive: true }
+    );
+
+    let resizeTimeout: number;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => {
+        updateCarousel();
+      }, 250);
+    });
+
+    updateCarousel();
+  }
+
+  // Gestion du FirstPage
   setTimeout(() => {
     const firstPage = document.getElementById("first-page");
     if (firstPage) {
@@ -630,44 +866,7 @@ const projets = await allProjets();
       firstPage.style.pointerEvents = "none";
       setTimeout(() => {
         firstPage.remove();
-      }, 500);
+      }, 1000);
     }
   }, 3000);
-
-  const carouselContainer = document.getElementById("carousel-container");
-  const carouselDots = document.querySelectorAll(".carousel-dot");
-
-  if (carouselContainer && carouselDots.length > 0) {
-    const scrollContainer = carouselContainer.parentElement;
-    
-    if (scrollContainer) {
-      const updateDots = () => {
-        const scrollLeft = scrollContainer.scrollLeft;
-        const cardWidth = scrollContainer.offsetWidth * 0.85;
-        const currentIndex = Math.round(scrollLeft / (cardWidth + 16));
-        
-        carouselDots.forEach((dot, index) => {
-          if (index === currentIndex) {
-            (dot as HTMLElement).style.opacity = "1";
-          } else {
-            (dot as HTMLElement).style.opacity = "0.3";
-          }
-        });
-      };
-
-      scrollContainer.addEventListener("scroll", updateDots);
-
-      carouselDots.forEach((dot, index) => {
-        dot.addEventListener("click", () => {
-          const cardWidth = scrollContainer.offsetWidth * 0.85;
-          scrollContainer.scrollTo({
-            left: index * (cardWidth + 16),
-            behavior: "smooth"
-          });
-        });
-      });
-      
-      updateDots();
-    }
-  }
 </script>
