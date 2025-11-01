@@ -1,6 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getProjet } from "../../../backend/backend.mjs";
+import { getProjet, allProjets } from "../../../backend/backend.mjs";
+
+export async function getStaticPaths() {
+  const projets = await allProjets();
+
+  return projets.map((projet) => ({
+    params: { id: projet.id.toString() },
+    props: { projet },
+  }));
+}
 
 const { id } = Astro.params;
 const projet = await getProjet(id);

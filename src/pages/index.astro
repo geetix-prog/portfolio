@@ -278,7 +278,7 @@ const projets = await allProjets();
     >
       {
         projets.slice(0, 3).map((p) => (
-          <a href={`/recettes/${p.id}`}>
+          <a href={`/projets/${p.id}`}>
             <ProjetsHome {...p} />
           </a>
         ))
