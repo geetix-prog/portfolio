@@ -278,14 +278,14 @@ const projets = await allProjets();
     >
       {
         projets.slice(0, 3).map((p) => (
-          <article>
+          <a href={`/recettes/${p.id}`}>
             <ProjetsHome {...p} />
-          </article>
+          </a>
         ))
       }
     </div>
     <a
-      href="/projects"
+      href="/projets"
       class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
     >
       <span class="text-primary font-grotesk font-bold text-xl">

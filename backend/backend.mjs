@@ -38,3 +38,14 @@ export async function allProjets() {
     return [];
   }
 }
+
+export async function getProjet(id) {
+  try {
+    let record = await pb.collection("projets").getOne(id);
+    record.img = pb.files.getURL(record, record.cover);
+    return record;
+  } catch (error) {
+    console.log("Une erreur est survenue en lisant le projet", error);
+    return null;
+  }
+}

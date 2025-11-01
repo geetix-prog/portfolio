@@ -1,0 +1,15 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getProjet } from "../../../backend/backend.mjs";
+
+const { id } = Astro.params;
+const projet = await getProjet(id);
+
+if (!projet) {
+  return Astro.redirect("/404");
+}
+---
+
+<Layout>
+  <h1>Projet {id}</h1>
+</Layout>
