@@ -1,0 +1,8 @@
+---
+const { ...comp } = Astro.props;
+---
+
+<div class="flex space-x-2 p-2 rounded-xl bg-[#797979]">
+  <img src={comp.img} alt={comp.nom} class="w-10 h-10" />
+  <p class="font-grotesk text-secondary text-2xl">{comp.nom}</p>
+</div>

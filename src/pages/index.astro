@@ -7,6 +7,10 @@ import Git from "../assets/icons/Github.svg";
 import Lk from "../assets/icons/Lk.svg";
 import Me from "../assets/img/mepic.webp";
 import Arrow from "../assets/icons/arrow.svg";
+import { allCompetences } from "../../backend/backend.mjs";
+import Competence from "../components/Competence.astro";
+
+const comp = await allCompetences();
 ---
 
 <Layout>
@@ -133,12 +137,35 @@ import Arrow from "../assets/icons/arrow.svg";
       </div>
     </div>
   </div>
+  <div class="flex flex-col items-center mt-40 space-y-24">
+    <h2 class="text-4xl text-secondary lg:text-5xl font-fruktur uppercase">
+      Mon univers d'outils
+    </h2>
+    <div
+      id="competence-container"
+      class="bg-tertiary rounded-4xl w-3/5 h-[500px] relative overflow-hidden"
+    >
+      {
+        comp.map((c, index) => (
+          <div
+            class="competence-item absolute flex space-x-2 p-2 rounded-xl bg-[#797979] transition-all duration-300"
+            data-index={index}
+          >
+            <img src={c.img} alt={c.nom} class="w-10 h-10" />
+            <p class="font-grotesk text-secondary text-2xl">{c.nom}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
 </Layout>
 
 <script>
   const deathButton = document.getElementById("death-button");
   const nameTitle = document.getElementById("name-title");
   const heroSection = document.getElementById("hero-section");
+  const container = document.getElementById("competence-container");
+  const items = document.querySelectorAll(".competence-item");
 
   let currentContainer: HTMLDivElement | null = null;
   const originalText = nameTitle?.textContent || "";
@@ -271,6 +298,148 @@ import Arrow from "../assets/icons/arrow.svg";
 
     nameTitle.style.opacity = "0";
   });
+
+  if (container && items.length > 0) {
+    const positions = new Map();
+    const sizes = new Map();
+
+    const initPositions = () => {
+      const containerRect = container.getBoundingClientRect();
+      const placedItems: Array<{
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+      }> = [];
+
+      items.forEach((item, index) => {
+        const htmlItem = item as HTMLElement;
+        const itemRect = htmlItem.getBoundingClientRect();
+
+        sizes.set(index, { width: itemRect.width, height: itemRect.height });
+
+        let x, y;
+        let attempts = 0;
+        const maxAttempts = 100;
+
+        do {
+          const maxX = container.offsetWidth - itemRect.width - 16;
+          const maxY = container.offsetHeight - itemRect.height - 16;
+
+          x = Math.random() * maxX + 8;
+          y = Math.random() * maxY + 8;
+
+          attempts++;
+
+          const overlaps = placedItems.some((placed) => {
+            const margin = 10;
+            return !(
+              x + itemRect.width + margin < placed.x ||
+              x > placed.x + placed.width + margin ||
+              y + itemRect.height + margin < placed.y ||
+              y > placed.y + placed.height + margin
+            );
+          });
+
+          if (!overlaps || attempts >= maxAttempts) break;
+        } while (true);
+
+        htmlItem.style.left = `${x}px`;
+        htmlItem.style.top = `${y}px`;
+
+        positions.set(index, { x, y });
+        placedItems.push({
+          x,
+          y,
+          width: itemRect.width,
+          height: itemRect.height,
+        });
+      });
+    };
+
+    initPositions();
+
+    container.addEventListener("mousemove", (e) => {
+      const containerRect = container.getBoundingClientRect();
+      const mouseX = e.clientX - containerRect.left;
+      const mouseY = e.clientY - containerRect.top;
+
+      items.forEach((item, index) => {
+        const htmlItem = item as HTMLElement;
+        const pos = positions.get(index);
+        const size = sizes.get(index);
+        if (!pos || !size) return;
+
+        const itemCenterX = pos.x + size.width / 2;
+        const itemCenterY = pos.y + size.height / 2;
+
+        const dx = itemCenterX - mouseX;
+        const dy = itemCenterY - mouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        const fleeRadius = 300;
+
+        if (distance < fleeRadius && distance > 0) {
+          const force = (fleeRadius - distance) / fleeRadius;
+          const pushDistance = force * 120;
+
+          const angle = Math.atan2(dy, dx);
+          let pushX = Math.cos(angle) * pushDistance;
+          let pushY = Math.sin(angle) * pushDistance;
+
+          let newX = pos.x + pushX;
+          let newY = pos.y + pushY;
+
+          items.forEach((otherItem, otherIndex) => {
+            if (index === otherIndex) return;
+
+            const otherPos = positions.get(otherIndex);
+            const otherSize = sizes.get(otherIndex);
+            if (!otherPos || !otherSize) return;
+
+            const distX =
+              newX + size.width / 2 - (otherPos.x + otherSize.width / 2);
+            const distY =
+              newY + size.height / 2 - (otherPos.y + otherSize.height / 2);
+            const dist = Math.sqrt(distX * distX + distY * distY);
+            const minDist = (size.width + otherSize.width) / 2 + 10;
+
+            if (dist < minDist && dist > 0) {
+              const pushAngle = Math.atan2(distY, distX);
+              const pushAmount = (minDist - dist) * 0.5;
+              pushX += Math.cos(pushAngle) * pushAmount;
+              pushY += Math.sin(pushAngle) * pushAmount;
+            }
+          });
+
+          newX = pos.x + pushX;
+          newY = pos.y + pushY;
+
+          const margin = 8;
+          const maxX = container.offsetWidth - size.width - margin;
+          const maxY = container.offsetHeight - size.height - margin;
+
+          newX = Math.max(margin, Math.min(newX, maxX));
+          newY = Math.max(margin, Math.min(newY, maxY));
+
+          positions.set(index, { x: newX, y: newY });
+
+          htmlItem.style.left = `${newX}px`;
+          htmlItem.style.top = `${newY}px`;
+          htmlItem.style.transform = `scale(${1 - force * 0.15})`;
+        } else {
+          htmlItem.style.transform = "scale(1)";
+        }
+      });
+    });
+
+    container.addEventListener("mouseleave", () => {
+      items.forEach((item) => {
+        const htmlItem = item as HTMLElement;
+        htmlItem.style.transform = "scale(1)";
+      });
+    });
+  }
 
   setTimeout(() => {
     const firstPage = document.getElementById("first-page");
