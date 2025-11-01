@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
 import FirstPage from "../components/FirstPage.astro";
 import Hero from "../assets/img/hero.png";
 import Death from "../assets/icons/death.svg";
@@ -8,13 +9,12 @@ import Lk from "../assets/icons/Lk.svg";
 import Me from "../assets/img/mepic.webp";
 import Arrow from "../assets/icons/arrow.svg";
 import { allCompetences } from "../../backend/backend.mjs";
-import Competence from "../components/Competence.astro";
 
 const comp = await allCompetences();
 ---
 
 <Layout>
-  <!-- <FirstPage /> -->
+  <!-- <FirstPage id="first-page" /> -->
   <div class="relative">
     <div class="sticky top-0 z-0 h-screen">
       <div
@@ -36,10 +36,13 @@ const comp = await allCompetences();
             id="death-button"
             class="bg-secondary rounded-full w-12 h-12 lg:w-15 lg:h-15 overflow-hidden mx-auto flex items-center justify-center gap-0 hover:w-75 hover:gap-4 transition-all duration-500 group cursor-pointer"
           >
-            <img
-              src={Death.src}
+            <Image
+              src={Death}
               alt="Ne pas cliquer"
               class="w-8 h-8 lg:w-10 lg:h-10"
+              loading="eager"
+              width={40}
+              height={40}
             />
             <p
               class="uppercase font-grotesk font-bold text-2xl whitespace-nowrap w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-500 overflow-hidden"
@@ -52,10 +55,13 @@ const comp = await allCompetences();
           class="absolute bottom-20 left-1/2 flex transform -translate-x-1/2 space-x-5"
         >
           <a href="https://github.com/geetix-prog" target="_blank">
-            <img
-              src={Git.src}
+            <Image
+              src={Git}
               alt="GitHub"
               class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
+              loading="lazy"
+              width={60}
+              height={60}
             />
           </a>
 
@@ -63,17 +69,22 @@ const comp = await allCompetences();
             href="https://www.linkedin.com/in/mathis-guellati-631502329/"
             target="_blank"
           >
-            <img
-              src={Lk.src}
+            <Image
+              src={Lk}
               alt="LinkedIn"
               class="w-12 h-12 lg:w-15 lg:h-15 hover:scale-110 transition-transform duration-300"
+              loading="lazy"
+              width={60}
+              height={60}
             />
           </a>
         </div>
-        <img
-          src={Hero.src}
+        <Image
+          src={Hero}
           alt="Hero Image"
           class="w-full h-full object-cover absolute -z-10"
+          loading="eager"
+          quality={80}
         />
       </div>
     </div>
@@ -84,10 +95,12 @@ const comp = await allCompetences();
       <div
         class="flex items-center align-middle w-full justify-center lg:justify-start space-x-75"
       >
-        <img
-          src={Me.src}
+        <Image
+          src={Me}
           alt="Photo de Mathis Guellati"
           class="py-3 pr-3 border-4 border-l-0 border-secondary rounded-r-3xl hidden md:block"
+          loading="lazy"
+          quality={85}
         />
         <div class="flex flex-col space-y-20 mt-10 items-center w-150">
           <h2 class="text-4xl lg:text-5xl font-fruktur uppercase">
@@ -121,7 +134,14 @@ const comp = await allCompetences();
             <p class="text-primary font-grotesk font-bold text-xl">
               Télécharger mon CV
             </p>
-            <img src={Arrow.src} alt="Flèche" class="inline-block ml-2" />
+            <Image
+              src={Arrow}
+              alt="Flèche"
+              class="inline-block ml-2"
+              loading="lazy"
+              width={24}
+              height={24}
+            />
           </a>
         </div>
       </div>
@@ -153,7 +173,14 @@ const comp = await allCompetences();
             class="competence-item absolute flex space-x-2 p-2 rounded-xl bg-[#797979] transition-all duration-300 text-sm lg:text-base"
             data-index={index}
           >
-            <img src={c.img} alt={c.nom} class="w-8 h-8 lg:w-10 lg:h-10" />
+            <img
+              src={c.img}
+              alt={c.nom}
+              class="w-8 h-8 lg:w-10 lg:h-10"
+              loading="lazy"
+              width="40"
+              height="40"
+            />
             <p class="font-grotesk text-secondary text-lg lg:text-2xl whitespace-nowrap">
               {c.nom}
             </p>
@@ -185,7 +212,6 @@ const comp = await allCompetences();
     nameTitle.textContent = originalText;
     nameTitle.style.opacity = "1";
 
-    const rect = nameTitle.getBoundingClientRect();
     const text = nameTitle.textContent || "";
     const letters = text.split("");
 
@@ -213,8 +239,10 @@ const comp = await allCompetences();
     currentContainer = container;
 
     const heroRect = heroSection.getBoundingClientRect();
+    const isMobile = window.innerWidth < 768;
+    const maxLetters = isMobile ? 10 : letterElements.length;
 
-    letterElements.forEach((letterEl, index) => {
+    letterElements.slice(0, maxLetters).forEach((letterEl) => {
       const letter = letterEl.textContent;
       if (letter === " ") return;
 
@@ -226,7 +254,7 @@ const comp = await allCompetences();
       span.textContent = letter;
       span.className = "font-fruktur uppercase text-secondary";
       span.style.position = "absolute";
-      span.style.fontSize = "9rem";
+      span.style.fontSize = isMobile ? "4rem" : "9rem";
       span.style.left = `${startX}px`;
       span.style.top = `${startY}px`;
       span.style.transform = "translate(-50%, -50%)";
@@ -371,75 +399,85 @@ const comp = await allCompetences();
         });
 
         if (isMobile) {
-          animateMobile();
+          let lastUpdate = 0;
+          const fps = 30;
+          const interval = 1000 / fps;
+
+          const animateMobile = (timestamp: number) => {
+            if (timestamp - lastUpdate < interval) {
+              requestAnimationFrame(animateMobile);
+              return;
+            }
+            lastUpdate = timestamp;
+
+            items.forEach((item, index) => {
+              const htmlItem = item as HTMLElement;
+              const pos = positions.get(index);
+              const size = sizes.get(index);
+              const vel = velocities.get(index);
+              if (!pos || !size || !vel) return;
+
+              let newX = pos.x + vel.vx * 0.016;
+              let newY = pos.y + vel.vy * 0.016;
+
+              const margin = 8;
+              const maxX = container.offsetWidth - size.width - margin;
+              const maxY = container.offsetHeight - size.height - margin;
+
+              if (newX < margin || newX > maxX) {
+                vel.vx *= -1;
+                newX = Math.max(margin, Math.min(newX, maxX));
+              }
+
+              if (newY < margin || newY > maxY) {
+                vel.vy *= -1;
+                newY = Math.max(margin, Math.min(newY, maxY));
+              }
+
+              items.forEach((otherItem, otherIndex) => {
+                if (index === otherIndex) return;
+
+                const otherPos = positions.get(otherIndex);
+                const otherSize = sizes.get(otherIndex);
+                const otherVel = velocities.get(otherIndex);
+                if (!otherPos || !otherSize || !otherVel) return;
+
+                const distX =
+                  newX + size.width / 2 - (otherPos.x + otherSize.width / 2);
+                const distY =
+                  newY + size.height / 2 - (otherPos.y + otherSize.height / 2);
+                const dist = Math.sqrt(distX * distX + distY * distY);
+                const minDist = (size.width + otherSize.width) / 2 + 15;
+
+                if (dist < minDist && dist > 0) {
+                  const angle = Math.atan2(distY, distX);
+                  const overlap = minDist - dist;
+
+                  newX += Math.cos(angle) * overlap * 0.5;
+                  newY += Math.sin(angle) * overlap * 0.5;
+
+                  const speed = Math.sqrt(vel.vx * vel.vx + vel.vy * vel.vy);
+                  vel.vx = Math.cos(angle) * speed;
+                  vel.vy = Math.sin(angle) * speed;
+                }
+              });
+
+              newX = Math.max(margin, Math.min(newX, maxX));
+              newY = Math.max(margin, Math.min(newY, maxY));
+
+              positions.set(index, { x: newX, y: newY });
+              velocities.set(index, vel);
+
+              htmlItem.style.left = `${newX}px`;
+              htmlItem.style.top = `${newY}px`;
+            });
+
+            requestAnimationFrame(animateMobile);
+          };
+
+          requestAnimationFrame(animateMobile);
         }
       }, 100);
-    };
-
-    const animateMobile = () => {
-      items.forEach((item, index) => {
-        const htmlItem = item as HTMLElement;
-        const pos = positions.get(index);
-        const size = sizes.get(index);
-        const vel = velocities.get(index);
-        if (!pos || !size || !vel) return;
-
-        let newX = pos.x + vel.vx * 0.016;
-        let newY = pos.y + vel.vy * 0.016;
-
-        const margin = 8;
-        const maxX = container.offsetWidth - size.width - margin;
-        const maxY = container.offsetHeight - size.height - margin;
-
-        if (newX < margin || newX > maxX) {
-          vel.vx *= -1;
-          newX = Math.max(margin, Math.min(newX, maxX));
-        }
-
-        if (newY < margin || newY > maxY) {
-          vel.vy *= -1;
-          newY = Math.max(margin, Math.min(newY, maxY));
-        }
-
-        items.forEach((otherItem, otherIndex) => {
-          if (index === otherIndex) return;
-
-          const otherPos = positions.get(otherIndex);
-          const otherSize = sizes.get(otherIndex);
-          const otherVel = velocities.get(otherIndex);
-          if (!otherPos || !otherSize || !otherVel) return;
-
-          const distX =
-            newX + size.width / 2 - (otherPos.x + otherSize.width / 2);
-          const distY =
-            newY + size.height / 2 - (otherPos.y + otherSize.height / 2);
-          const dist = Math.sqrt(distX * distX + distY * distY);
-          const minDist = (size.width + otherSize.width) / 2 + 15;
-
-          if (dist < minDist && dist > 0) {
-            const angle = Math.atan2(distY, distX);
-            const overlap = minDist - dist;
-
-            newX += Math.cos(angle) * overlap * 0.5;
-            newY += Math.sin(angle) * overlap * 0.5;
-
-            const speed = Math.sqrt(vel.vx * vel.vx + vel.vy * vel.vy);
-            vel.vx = Math.cos(angle) * speed;
-            vel.vy = Math.sin(angle) * speed;
-          }
-        });
-
-        newX = Math.max(margin, Math.min(newX, maxX));
-        newY = Math.max(margin, Math.min(newY, maxY));
-
-        positions.set(index, { x: newX, y: newY });
-        velocities.set(index, vel);
-
-        htmlItem.style.left = `${newX}px`;
-        htmlItem.style.top = `${newY}px`;
-      });
-
-      requestAnimationFrame(animateMobile);
     };
 
     initPositions();
