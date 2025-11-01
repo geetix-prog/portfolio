@@ -19,3 +19,22 @@ export async function allCompetences() {
     return [];
   }
 }
+
+export async function allProjets() {
+  try {
+    let record = await pb.collection("projets").getFullList({
+      sort: "titre",
+    });
+    record = record.map((projets) => {
+      projets.img = pb.files.getURL(projets, projets.cover);
+      return projets;
+    });
+    return record;
+  } catch (error) {
+    console.log(
+      "Une erreur est survenue en lisant la liste des compétences",
+      error
+    );
+    return [];
+  }
+}
