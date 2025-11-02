@@ -20,5 +20,28 @@ if (!projet) {
 ---
 
 <Layout>
-  <h1>Projet {id}</h1>
+  <h1 class="font-fruktur text-white text-5xl mt-50 px-20 pb-20 capitalize">
+    {projet.titre}
+  </h1>
+  <div class="w-full flex border-t-3 border-secondary text-secondary">
+    <div class="w-1/4 border-r-3 border-secondary"></div>
+    <div class="w-3/4 flex flex-col space-y-20 items-center mt-14">
+      <h2 class="font-fruktur text-4xl">
+        {projet.accroche}
+      </h2>
+      <div class="flex space-x-10">
+        <img src={projet.visuels} alt={projet.titre} class="w-150" />
+        <p class="font-grotesk my-auto w-100 text-lg leading-loose">
+          {projet.desciptioncourt}
+        </p>
+      </div>
+      <div class="font-grotesk w-3/4 text-lg space-y-8">
+        <p>{projet.shortcontext}</p>
+        <p>{projet.objectif}</p>
+        <p>{projet.problematique}</p>
+      </div>
+      <img src={projet.moodboard} alt="Inspiration graphique" class="w-150" />
+      <p class="font-grotesk w-3/4 text-lg space-y-8">{projet.conclusion}</p>
+    </div>
+  </div>
 </Layout>

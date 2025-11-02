@@ -42,7 +42,10 @@ export async function allProjets() {
 export async function getProjet(id) {
   try {
     let record = await pb.collection("projets").getOne(id);
-    record.img = pb.files.getURL(record, record.cover);
+    record.cover = pb.files.getURL(record, record.cover);
+    record.visuels = pb.files.getURL(record, record.visuels);
+    record.galerie = pb.files.getURL(record, record.galerie);
+    record.moodboard = pb.files.getURL(record, record.moodboard);
     return record;
   } catch (error) {
     console.log("Une erreur est survenue en lisant le projet", error);
