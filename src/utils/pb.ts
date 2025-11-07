@@ -1,11 +1,10 @@
 import PocketBase from "pocketbase";
+import type { TypedPocketBase } from "./pocketbase-types";
 
-// Use local PocketBase when developing, production URL when deployed
-const DEV_URL = "http://127.0.0.1:8090";
-const PROD_URL = "https://portfolio.mathis-guellati.fr/_/";
+const path =
+  import.meta.env.MODE === "development"
+    ? "http://127.0.0.1:8090"
+    : "http://localhost:8089";
 
-const baseURL = import.meta.env.MODE === "development" ? DEV_URL : PROD_URL;
-
-const pb = new PocketBase(baseURL);
-
+const pb = new PocketBase(path) as TypedPocketBase;
 export default pb;
