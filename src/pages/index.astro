@@ -16,7 +16,7 @@ const projets = await allProjets();
 ---
 
 <Layout>
-  <!-- <FirstPage id="first-page" /> -->
+  <FirstPage id="first-page" /> 
   <div class="relative">
     <div class="sticky top-0 z-0 h-screen">
       <section
@@ -510,7 +510,6 @@ const projets = await allProjets();
     nameTitle.style.opacity = "0";
   });
 
-  // Animation compétences optimisée
   if (competenceContainer && items.length > 0) {
     const isMobile = window.innerWidth < 1024;
     const positions = new Map();
@@ -759,7 +758,6 @@ const projets = await allProjets();
     }
   }
 
-  // Carousel optimisé
   const carouselContainer = document.getElementById("carousel-container");
   const carouselPrev = document.getElementById("carousel-prev");
   const carouselNext = document.getElementById("carousel-next");
@@ -874,7 +872,6 @@ const projets = await allProjets();
     updateCarousel();
   }
 
-  // Gestion du FirstPage
   setTimeout(() => {
     const firstPage = document.getElementById("first-page");
     if (firstPage) {
