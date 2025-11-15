@@ -51,3 +51,13 @@ export async function getProjet(id) {
     return null;
   }
 }
+
+export async function createContact(data) {
+  try {
+    const record = await pb.collection("contacts").create(data);
+    return { success: true, record };
+  } catch (error) {
+    console.log("Une erreur est survenue lors de la création du contact", error);
+    return { success: false, error: error.message };
+  }
+}
