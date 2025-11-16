@@ -20,9 +20,20 @@ if (!projet) {
 ---
 
 <Layout>
-  <h1 class="font-fruktur text-white text-4xl lg:text-5xl mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20 capitalize">
-    {projet.titre}
-  </h1>
+  <div class="flex items-center justify-between mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20">
+    <h1 class="font-fruktur text-white text-4xl lg:text-5xl capitalize">
+      {projet.titre}
+    </h1>
+    <a
+      href="/projets"
+      class="inline-flex items-center gap-2 text-secondary hover:text-white transition-colors font-grotesk group"
+    >
+      <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      <span>Retour aux projets</span>
+    </a>
+  </div>
   <div class="w-full flex border-t-3 border-secondary text-secondary -mb-40">
     <div class="hidden lg:block w-1/4 border-secondary border-y-3 p-10 pb-20 sticky top-50 self-start">
       <div class="space-y-0">

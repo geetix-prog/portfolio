@@ -1,7 +1,155 @@
 ---
-import Layout from "../../layouts/Layout.astro"
+import Layout from "../../layouts/Layout.astro";
+import Projets from "../../components/Projets.astro";
+import { allProjets } from "../../../backend/backend.mjs";
+
+const projets = await allProjets();
+
+// Extraire tous les contextes uniques
+const contextes = [...new Set(projets.map(p => p.contexte))].filter(Boolean);
 ---
 
 <Layout>
-  
+  <h1 class="font-fruktur text-white text-4xl lg:text-5xl mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20 capitalize">
+    Tous mes projets
+  </h1>
+  <div class="w-full flex border-t-3 border-secondary text-secondary -mb-40">
+    <!-- Filtres à gauche -->
+    <div class="hidden lg:block w-1/4 border-secondary border-y-3 p-10 pb-20 sticky top-50 self-start">
+      <div class="space-y-6">
+        <h2 class="font-fruktur text-2xl text-white mb-6">Filtrer par contexte</h2>
+        
+        <!-- Bouton Tous -->
+        <button
+          class="filter-btn w-full text-left py-3 px-4 rounded-lg font-grotesk text-lg transition-all duration-300 bg-secondary/20 hover:bg-secondary/30 border-2 border-transparent"
+          data-filter="all"
+        >
+          <span class="flex items-center justify-between">
+            <span>Tous les projets</span>
+            <span class="filter-count font-bold">{projets.length}</span>
+          </span>
+        </button>
+
+        <!-- Filtres par contexte -->
+        {contextes.map(contexte => {
+          const count = projets.filter(p => p.contexte === contexte).length;
+          return (
+            <button
+              class="filter-btn w-full text-left py-3 px-4 rounded-lg font-grotesk text-base transition-all duration-300 hover:bg-secondary/10 border-2 border-transparent hover:border-secondary/30"
+              data-filter={contexte}
+            >
+              <span class="flex items-center justify-between">
+                <span>{contexte}</span>
+                <span class="filter-count text-sm opacity-60">{count}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Projets à droite -->
+    <div class="w-full lg:w-3/4 lg:border-l-3 border-secondary p-6 lg:p-10 pb-40">
+      <!-- Filtre mobile -->
+      <div class="lg:hidden mb-6">
+        <label for="mobile-filter" class="block font-grotesk text-sm mb-2">Filtrer par :</label>
+        <select
+          id="mobile-filter"
+          class="w-full px-4 py-3 bg-primary border-2 border-secondary rounded-lg font-grotesk text-secondary focus:outline-none focus:ring-2 focus:ring-secondary"
+        >
+          <option value="all">Tous les projets ({projets.length})</option>
+          {contextes.map(contexte => {
+            const count = projets.filter(p => p.contexte === contexte).length;
+            return (
+              <option value={contexte}>{contexte} ({count})</option>
+            );
+          })}
+        </select>
+      </div>
+
+      <!-- Grille de projets -->
+      <div id="projets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        {projets.map(projet => (
+          <article class="projet-card scale-90" data-contexte={projet.contexte}>
+            <a href={`/projets/${projet.id}`} class="block">
+              <Projets {...projet} />
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <!-- Message si aucun projet -->
+      <div id="no-results" class="hidden text-center py-20">
+        <p class="font-grotesk text-xl text-secondary/60">
+          Aucun projet trouvé pour ce filtre.
+        </p>
+      </div>
+    </div>
+  </div>
 </Layout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const mobileFilter = document.getElementById('mobile-filter') as HTMLSelectElement;
+  const projetCards = document.querySelectorAll('.projet-card');
+  const noResults = document.getElementById('no-results');
+
+  function filterProjects(contexte: string) {
+    let visibleCount = 0;
+
+    projetCards.forEach(card => {
+      const cardContexte = (card as HTMLElement).dataset.contexte;
+      
+      if (contexte === 'all' || cardContexte === contexte) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    // Afficher/masquer le message "aucun résultat"
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+  }
+
+  // Gestion des filtres desktop
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter || 'all';
+      
+      // Mettre à jour l'apparence du bouton actif
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-secondary/20', 'border-secondary', 'text-white');
+        b.classList.add('hover:bg-secondary/10');
+      });
+      
+      btn.classList.add('bg-secondary/20', 'border-secondary', 'text-white');
+      btn.classList.remove('hover:bg-secondary/10');
+      
+      // Filtrer les projets
+      filterProjects(filter);
+    });
+  });
+
+  // Gestion du filtre mobile
+  if (mobileFilter) {
+    mobileFilter.addEventListener('change', (e) => {
+      const filter = (e.target as HTMLSelectElement).value;
+      filterProjects(filter);
+    });
+  }
+</script>
+
+<style>
+  .filter-btn:first-of-type {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 1);
+    color: white;
+  }
+</style>

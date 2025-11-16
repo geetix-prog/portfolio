@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import FirstPage from "../components/FirstPage.astro";
 import { allCompetences, allProjets } from "../../backend/backend.mjs";
-import ProjetsHome from "../components/ProjetsHome.astro";
+import Projets from "../components/Projets.astro";
 
 const comp = await allCompetences();
 const projets = await allProjets();
@@ -193,7 +193,7 @@ const projets = await allProjets();
             >
               <div class="w-4/5">
               <a href={`/projets/${p.id}`}>
-                <ProjetsHome {...p} />
+                <Projets {...p} />
               </a>
               </div>
             </article>
@@ -252,7 +252,7 @@ const projets = await allProjets();
       {
         projets.slice(0, 3).map((p) => (
           <a href={`/projets/${p.id}`}>
-            <ProjetsHome {...p} />
+            <Projets {...p} />
           </a>
         ))
       }
