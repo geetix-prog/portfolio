@@ -17,13 +17,13 @@ const projets = await allProjets();
         class="h-screen w-full overflow-hidden flex items-center justify-center relative"
         aria-label="Section d'accueil"
       >
-        <div class="text-center space-y-20">
-          <p class="text-secondary text-2xl lg:text-4xl font-grotesk">
+        <div class="text-center space-y-12 md:space-y-20 px-4">
+          <p class="text-secondary text-lg md:text-2xl lg:text-4xl font-grotesk">
             Développeur créatif
           </p>
           <h1
             id="name-title"
-            class="text-8xl lg:text-9xl font-fruktur uppercase text-secondary"
+            class="text-6xl md:text-7xl lg:text-9xl font-fruktur uppercase text-secondary"
           >
             Mathis Guellati
           </h1>
@@ -103,26 +103,26 @@ const projets = await allProjets();
           width="400"
           height="400"
         />
-        <div class="flex flex-col space-y-20 mt-10 items-center w-150 px-4">
+        <div class="flex flex-col space-y-12 md:space-y-20 mt-10 items-center w-full md:w-150 px-4 md:px-0">
           <h2
             id="about-heading"
-            class="text-4xl lg:text-5xl font-fruktur uppercase"
+            class="text-3xl md:text-4xl lg:text-5xl font-fruktur uppercase"
           >
             qui suis-je ?
           </h2>
-          <div class="flex flex-col w-100 lg:w-200 space-y-15">
-            <p class="font-grotesk text-lg">
+          <div class="flex flex-col w-full md:w-100 lg:w-200 space-y-8 md:space-y-15">
+            <p class="font-grotesk text-base md:text-lg leading-relaxed">
               Moi c'est Mathis ! Je suis actuellement en 2ème année de BUT MMI à
               Montbéliard et je souhaite évoluer vers le métier de développeur
               web créatif.
             </p>
-            <p class="font-grotesk text-lg">
+            <p class="font-grotesk text-base md:text-lg leading-relaxed">
               J'aime donner vie à des idées en mêlant développement web, design
               et communication digitale. Je consacre mon temps à coder,
               expérimenter et explorer de nouvelles tendances pour créer des
               projets qui allient esthétique et efficacité.
             </p>
-            <p class="font-grotesk text-lg">
+            <p class="font-grotesk text-base md:text-lg leading-relaxed">
               Au-delà de mes études, je suis passionné par la création visuelle
               et les projets personnels : j'aime tester de nouveaux outils,
               imaginer des concepts originaux et m'inspirer de ce qui m'entoure
@@ -133,10 +133,10 @@ const projets = await allProjets();
           <a
             href="/docs/CV-Mathis-Guellati.pdf"
             download="CV-Mathis-Guellati.pdf"
-            class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
+            class="bg-secondary rounded-full flex px-4 md:px-6 py-2 md:py-3 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
             aria-label="Télécharger mon CV au format PDF"
           >
-            <span class="text-primary font-grotesk font-bold text-xl">
+            <span class="text-primary font-grotesk font-bold text-base md:text-lg lg:text-xl">
               Télécharger mon CV
             </span>
             <img
@@ -151,10 +151,10 @@ const projets = await allProjets();
         </div>
       </div>
       <div
-        class="lg:absolute lg:bottom-20 lg:left-1/2 lg:transform lg:-translate-x-1/2 relative z-10 w-100 lg:w-full justify-center px-4"
+        class="lg:absolute lg:bottom-20 lg:left-1/2 lg:transform lg:-translate-x-1/2 relative z-10 w-full lg:w-full justify-center px-6 md:px-4"
       >
         <blockquote
-          class="font-grotesk text-secondary text-[16px] text-center lg:w-full"
+          class="font-grotesk text-secondary text-sm md:text-base text-center lg:w-full leading-relaxed"
         >
           « Si déboguer consiste à enlever des bugs, alors programmer doit
           consister à les mettre. » — <cite>Edsger Dijkstra</cite>
@@ -164,12 +164,12 @@ const projets = await allProjets();
   </div>
 
   <section
-    class="flex flex-col items-center mt-40 space-y-24 px-4"
+    class="flex flex-col items-center mt-20 md:mt-40 space-y-12 md:space-y-24 px-4"
     aria-labelledby="projects-heading"
   >
     <h2
       id="projects-heading"
-      class="text-4xl text-secondary lg:text-5xl font-fruktur uppercase text-center"
+      class="text-3xl md:text-4xl lg:text-5xl text-secondary font-fruktur uppercase text-center"
     >
       Mes projets récents
     </h2>
@@ -259,9 +259,9 @@ const projets = await allProjets();
     </div>
     <a
       href="/projets"
-      class="bg-secondary rounded-full flex px-4 py-2 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
+      class="bg-secondary rounded-full flex px-4 md:px-6 py-2 md:py-3 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
     >
-      <span class="text-primary font-grotesk font-bold text-xl">
+      <span class="text-primary font-grotesk font-bold text-base md:text-lg lg:text-xl">
         Voir plus
       </span>
       <img
@@ -276,12 +276,12 @@ const projets = await allProjets();
   </section>
 
   <section
-    class="flex flex-col items-center mt-40 mb-40 space-y-24 px-4"
+    class="flex flex-col items-center mt-20 md:mt-40 mb-20 md:mb-40 space-y-12 md:space-y-24 px-4"
     aria-labelledby="skills-heading"
   >
     <h2
       id="skills-heading"
-      class="text-4xl text-secondary lg:text-5xl font-fruktur uppercase text-center"
+      class="text-3xl md:text-4xl lg:text-5xl text-secondary font-fruktur uppercase text-center"
     >
       Mon univers d'outils
     </h2>
