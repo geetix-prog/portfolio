@@ -45,6 +45,28 @@ export async function getProjet(id) {
     record.visuels = pb.files.getURL(record, record.visuels);
     record.galerie = pb.files.getURL(record, record.galerie);
     record.moodboard = pb.files.getURL(record, record.moodboard);
+    
+    if (record.competence && record.competence.length > 0) {
+      const competencesDetails = await Promise.all(
+        record.competence.map(async (competenceId) => {
+          try {
+            const logiciel = await pb.collection("logiciels").getOne(competenceId);
+            return {
+              id: logiciel.id,
+              nom: logiciel.nom,
+              logo: pb.files.getURL(logiciel, logiciel.logo)
+            };
+          } catch (error) {
+            console.log(`Erreur lors de la récupération de la compétence ${competenceId}`, error);
+            return null;
+          }
+        })
+      );
+      record.competences = competencesDetails.filter(c => c !== null);
+    } else {
+      record.competences = [];
+    }
+    
     return record;
   } catch (error) {
     console.log("Une erreur est survenue en lisant le projet", error);

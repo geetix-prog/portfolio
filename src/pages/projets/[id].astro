@@ -23,9 +23,101 @@ if (!projet) {
   <h1 class="font-fruktur text-white text-5xl mt-50 px-20 pb-20 capitalize">
     {projet.titre}
   </h1>
-  <div class="w-full flex border-t-3 border-secondary text-secondary">
-    <div class="w-1/4 border-r-3 border-secondary"></div>
-    <div class="w-3/4 border-l-3 flex flex-col space-y-20 items-center mt-14">
+  <div class="w-full flex border-t-3 border-secondary text-secondary -mb-40">
+    <div class="w-1/4 border-secondary border-y-3 p-10 pb-20 sticky top-50 self-start">
+      <div class="space-y-0">
+        <div class="border-b border-secondary">
+          <button
+            class="accordion-btn w-full text-left py-5 flex justify-between items-center font-grotesk text-lg hover:text-white transition-colors cursor-pointer"
+            data-accordion="item1"
+          >
+            <span>Description du projet</span>
+            <span class="accordion-icon text-2xl font-light">+</span>
+          </button>
+          <div class="accordion-content hidden overflow-hidden pb-5">
+            <p class="font-grotesk text-sm leading-relaxed text-secondary/80 pr-4">
+              {projet.descriptionlong}
+            </p>
+          </div>
+        </div>
+        <div class="border-b border-secondary">
+          <button
+            class="accordion-btn w-full text-left py-5 flex justify-between items-center font-grotesk text-lg hover:text-white transition-colors cursor-pointer"
+            data-accordion="item2"
+          >
+            <span>Logiciels utilisées</span>
+            <span class="accordion-icon text-2xl font-light">+</span>
+          </button>
+          <div
+            class="accordion-content flex flex-wrap gap-3 hidden overflow-hidden pb-5"
+          >
+            {
+              projet.competences?.map((comp) => (
+                <div class="flex gap-2 px-3 py-2 rounded font-grotesk items-center text-sm bg-secondary/20 border border-secondary/40">
+                  <img src={comp.logo} alt={comp.nom} class="w-5 h-5" />
+                  <span>{comp.nom}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="border-b border-secondary">
+          <button
+            class="accordion-btn w-full text-left py-5 flex justify-between items-center font-grotesk text-lg hover:text-white transition-colors cursor-pointer"
+            data-accordion="item3"
+          >
+            <span>Liens utiles</span>
+            <span class="accordion-icon text-2xl font-light">+</span>
+          </button>
+            <div class="accordion-content hidden overflow-hidden pb-4 space-y-3">
+            {projet.maquette && (
+              <a
+              href={projet.maquette}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 px-4 py-3 bg-secondary/10 hover:bg-secondary/20 text-secondary rounded transition-colors font-grotesk font-semibold"
+              >
+              <!-- Maquette icon -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+                <path d="M7 8h10M7 12h4"></path>
+              </svg>
+              <span>Voir la maquette</span>
+              <!-- external icon -->
+              <svg class="ml-auto w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line>
+              </svg>
+              </a>
+            )}
+
+            {projet.site && (
+              <a
+              href={projet.site}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 px-4 py-3 bg-secondary/10 hover:bg-secondary/20 text-secondary rounded transition-colors font-grotesk font-semibold"
+              >
+              <!-- Site icon -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2 5 5 .5-4 3 1.2 5L12 14l-4.2 2.5L9 10 5 7.5 10 7 12 2z"></path>
+              </svg>
+              <span>Visiter le site</span>
+              <svg class="ml-auto w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line>
+              </svg>
+              </a>
+            )}
+            </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-3/4 border-l-3 flex flex-col space-y-20 items-center pt-14 pb-20"
+    >
       <h2 class="font-fruktur text-4xl">
         {projet.accroche}
       </h2>
@@ -45,3 +137,31 @@ if (!projet) {
     </div>
   </div>
 </Layout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const accordionBtns = document.querySelectorAll(".accordion-btn");
+
+    accordionBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const content = btn.nextElementSibling as HTMLElement;
+        const icon = btn.querySelector(".accordion-icon") as HTMLElement;
+        const isOpen = !content.classList.contains("hidden");
+
+        // Fermer tous les autres accordéons
+        document.querySelectorAll(".accordion-content").forEach((item) => {
+          item.classList.add("hidden");
+        });
+        document.querySelectorAll(".accordion-icon").forEach((iconEl) => {
+          iconEl.textContent = "+";
+        });
+
+        // Toggle l'accordéon actuel
+        if (!isOpen) {
+          content.classList.remove("hidden");
+          icon.textContent = "−";
+        }
+      });
+    });
+  });
+</script>
