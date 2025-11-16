@@ -1,4 +1,3 @@
-// src/pages/api/contact.ts
 import type { APIRoute } from 'astro';
 import { createContact } from '../../../backend/backend.mjs';
 
@@ -6,7 +5,6 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
     
-    // Validation côté serveur
     if (!data.nom || !data.email || !data.message) {
       return new Response(
         JSON.stringify({ 
@@ -20,7 +18,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validation email basique
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
       return new Response(
@@ -35,7 +32,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Création du contact via PocketBase
     const result = await createContact({
       nom: data.nom,
       email: data.email,
