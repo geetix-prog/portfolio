@@ -20,11 +20,11 @@ if (!projet) {
 ---
 
 <Layout>
-  <h1 class="font-fruktur text-white text-5xl mt-50 px-20 pb-20 capitalize">
+  <h1 class="font-fruktur text-white text-4xl lg:text-5xl mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20 capitalize">
     {projet.titre}
   </h1>
   <div class="w-full flex border-t-3 border-secondary text-secondary -mb-40">
-    <div class="w-1/4 border-secondary border-y-3 p-10 pb-20 sticky top-50 self-start">
+    <div class="hidden lg:block w-1/4 border-secondary border-y-3 p-10 pb-20 sticky top-50 self-start">
       <div class="space-y-0">
         <div class="border-b border-secondary">
           <button
@@ -116,24 +116,24 @@ if (!projet) {
       </div>
     </div>
     <div
-      class="w-3/4 border-l-3 flex flex-col space-y-20 items-center pt-14 pb-20"
+      class="w-full lg:w-3/4 lg:border-l-3 flex flex-col space-y-20 items-center pt-14 pb-20"
     >
-      <h2 class="font-fruktur text-4xl">
+      <h2 class="font-fruktur text-3xl px-5 lg:px-0 lg:text-4xl">
         {projet.accroche}
       </h2>
-      <div class="flex space-x-10">
-        <img src={projet.visuels} alt={projet.titre} class="w-150" />
-        <p class="font-grotesk my-auto w-100 text-lg leading-loose">
+      <div class="flex flex-col w-4/5 lg:flex-row lg:space-x-10 space-y-6 lg:space-y-0 gap-10">
+        <img src={projet.visuels} alt={projet.titre} class="w-4/5 lg:w-150 mx-auto" />
+        <p class="font-grotesk my-auto lg:w-full lg:w-100 text-sm lg:text-lg leading-loose">
           {projet.desciptioncourt}
         </p>
       </div>
-      <div class="font-grotesk w-3/4 text-lg space-y-8">
+      <div class="font-grotesk w-4/5 text-sm lg:text-lg space-y-8">
         <p>{projet.shortcontext}</p>
         <p>{projet.objectif}</p>
         <p>{projet.problematique}</p>
       </div>
-      <img src={projet.moodboard} alt="Inspiration graphique" class="w-150" />
-      <p class="font-grotesk w-3/4 text-lg space-y-8">{projet.conclusion}</p>
+      <img src={projet.moodboard} alt="Inspiration graphique" class="w-4/5 lg:w-150 mx-auto" />
+      <p class="font-grotesk w-3/4 text-sm lg:text-lg space-y-8">{projet.conclusion}</p>
     </div>
   </div>
 </Layout>
