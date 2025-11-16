@@ -1,32 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { createContact } from "../../backend/backend.mjs";
-
-let successMessage = "";
-let errorMessage = "";
-
-if (Astro.request.method === "POST") {
-  try {
-    const formData = await Astro.request.formData();
-    const nom = formData.get("nom");
-    const email = formData.get("email");
-    const message = formData.get("message");
-
-    // Validation côté serveur
-    if (!nom || !email || !message) {
-      errorMessage = "Tous les champs sont requis.";
-    } else {
-      const result = await createContact({ nom, email, message });
-      if (result.success) {
-        successMessage = "Votre message a été envoyé avec succès !";
-      } else {
-        errorMessage = "Une erreur est survenue. Veuillez réessayer.";
-      }
-    }
-  } catch (error) {
-    errorMessage = "Une erreur est survenue lors de l'envoi du message.";
-  }
-}
 ---
 
 <Layout>
@@ -38,17 +11,11 @@ if (Astro.request.method === "POST") {
       </h1>
 
       <!-- Messages de feedback -->
-      {successMessage && (
-        <div class="max-w-5xl mx-auto mb-8 bg-green-500/20 border-2 border-green-500 text-green-200 px-6 py-4 rounded-3xl">
-          {successMessage}
-        </div>
-      )}
+      <div id="successMessage" class="max-w-5xl mx-auto mb-8 bg-green-500/20 border-2 border-green-500 text-green-200 px-6 py-4 rounded-3xl hidden">
+      </div>
       
-      {errorMessage && (
-        <div class="max-w-5xl mx-auto mb-8 bg-red-500/20 border-2 border-red-500 text-red-200 px-6 py-4 rounded-3xl">
-          {errorMessage}
-        </div>
-      )}
+      <div id="errorMessage" class="max-w-5xl mx-auto mb-8 bg-red-500/20 border-2 border-red-500 text-red-200 px-6 py-4 rounded-3xl hidden">
+      </div>
 
       <!-- Conteneur principal avec bordure -->
       <div class="max-w-5xl mx-auto border-4 border-white rounded-[2rem] overflow-hidden">
@@ -69,7 +36,7 @@ if (Astro.request.method === "POST") {
               Contact direct
             </h3>
 
-            <form method="POST" class="space-y-6">
+            <form id="contactForm" class="space-y-6">
               <!-- Nom et Email sur la même ligne -->
               <div class="grid md:grid-cols-2 gap-4">
                 <div>
@@ -117,11 +84,16 @@ if (Astro.request.method === "POST") {
               <div class="flex justify-center pt-2">
                 <button
                   type="submit"
-                  class="px-8 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors duration-200 flex items-center gap-2 text-sm"
+                  id="submitBtn"
+                  class="px-8 py-2.5 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors duration-200 flex items-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Envoyer
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span id="btnText">Envoyer</span>
+                  <svg id="btnArrow" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  <svg id="btnSpinner" class="w-4 h-4 animate-spin hidden" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                 </button>
               </div>
@@ -132,3 +104,72 @@ if (Astro.request.method === "POST") {
     </div>
   </div>
 </Layout>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const btnText = document.getElementById('btnText') as HTMLSpanElement;
+  const btnArrow = document.getElementById('btnArrow') as HTMLElement;
+  const btnSpinner = document.getElementById('btnSpinner') as HTMLElement;
+  const successMessage = document.getElementById('successMessage') as HTMLDivElement;
+  const errorMessage = document.getElementById('errorMessage') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Récupérer les données du formulaire
+    const formData = new FormData(form);
+    const data = {
+      nom: formData.get('nom') as string,
+      email: formData.get('email') as string,
+      message: formData.get('message') as string
+    };
+
+    // Masquer les messages précédents
+    successMessage.classList.add('hidden');
+    errorMessage.classList.add('hidden');
+
+    // Désactiver le bouton et afficher le spinner
+    submitBtn.disabled = true;
+    btnText.textContent = 'Envoi...';
+    btnArrow.classList.add('hidden');
+    btnSpinner.classList.remove('hidden');
+
+    try {
+      const response = await fetch('/apis/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        successMessage.textContent = result.message;
+        successMessage.classList.remove('hidden');
+        form.reset();
+        
+        // Faire défiler vers le message de succès
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        errorMessage.textContent = result.error;
+        errorMessage.classList.remove('hidden');
+        
+        // Faire défiler vers le message d'erreur
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } catch (error) {
+      errorMessage.textContent = "Une erreur réseau est survenue. Veuillez réessayer.";
+      errorMessage.classList.remove('hidden');
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } finally {
+      // Réactiver le bouton
+      submitBtn.disabled = false;
+      btnText.textContent = 'Envoyer';
+      btnArrow.classList.remove('hidden');
+      btnSpinner.classList.add('hidden');
+    }
+  });
+</script>
