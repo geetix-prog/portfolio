@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Projets from "../../components/Projets.astro";
 import { allProjets } from "../../../backend/backend.mjs";
 
 const projets = await allProjets();
@@ -64,6 +65,7 @@ const contextes = [...new Set(projets.map(p => p.contexte))].filter(Boolean);
         {projets.map(projet => (
           <article class="projet-card scale-90" data-contexte={projet.contexte}>
             <a href={`/projets/${projet.id}`} class="block">
+              <Projets {...projet} />
             </a>
           </article>
         ))}
