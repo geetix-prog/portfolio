@@ -18,7 +18,9 @@ const projets = await allProjets();
         aria-label="Section d'accueil"
       >
         <div class="text-center space-y-12 md:space-y-20 px-4">
-          <p class="text-secondary text-lg md:text-2xl lg:text-4xl font-grotesk">
+          <p
+            class="text-secondary text-lg md:text-2xl lg:text-4xl font-grotesk"
+          >
             Développeur créatif
           </p>
           <h1
@@ -103,14 +105,18 @@ const projets = await allProjets();
           width="400"
           height="400"
         />
-        <div class="flex flex-col space-y-12 md:space-y-20 mt-10 items-center w-full md:w-150 px-4 md:px-0">
+        <div
+          class="flex flex-col space-y-12 md:space-y-20 mt-10 items-center w-full md:w-150 px-4 md:px-0"
+        >
           <h2
             id="about-heading"
             class="text-3xl md:text-4xl lg:text-5xl font-fruktur uppercase"
           >
             qui suis-je ?
           </h2>
-          <div class="flex flex-col w-full md:w-100 lg:w-200 space-y-8 md:space-y-15">
+          <div
+            class="flex flex-col w-full md:w-100 lg:w-200 space-y-8 md:space-y-15"
+          >
             <p class="font-grotesk text-base md:text-lg leading-relaxed">
               Moi c'est Mathis ! Je suis actuellement en 2ème année de BUT MMI à
               Montbéliard et je souhaite évoluer vers le métier de développeur
@@ -136,7 +142,9 @@ const projets = await allProjets();
             class="bg-secondary rounded-full flex px-4 md:px-6 py-2 md:py-3 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
             aria-label="Télécharger mon CV au format PDF"
           >
-            <span class="text-primary font-grotesk font-bold text-base md:text-lg lg:text-xl">
+            <span
+              class="text-primary font-grotesk font-bold text-base md:text-lg lg:text-xl"
+            >
               Télécharger mon CV
             </span>
             <img
@@ -192,9 +200,9 @@ const projets = await allProjets();
               aria-label={`Projet ${index + 1} sur 3`}
             >
               <div class="w-4/5">
-              <a href={`/projets/${p.id}`}>
-                <Projets {...p} />
-              </a>
+                <a href={`/projets/${p.id}`}>
+                  <Projets {...p} />
+                </a>
               </div>
             </article>
           ))
@@ -261,7 +269,9 @@ const projets = await allProjets();
       href="/projets"
       class="bg-secondary rounded-full flex px-4 md:px-6 py-2 md:py-3 items-center gap-0 hover:gap-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-offset-2"
     >
-      <span class="text-primary font-grotesk font-bold text-base md:text-lg lg:text-xl">
+      <span
+        class="text-primary font-grotesk font-bold text-base md:text-lg lg:text-xl"
+      >
         Voir plus
       </span>
       <img
@@ -343,7 +353,6 @@ const projets = await allProjets();
   let currentContainer: HTMLDivElement | null = null;
   const originalText = nameTitle?.textContent || "";
 
-  // Animation death button optimisée
   deathButton?.addEventListener("click", () => {
     if (!nameTitle || !heroSection) return;
 
@@ -853,4 +862,21 @@ const projets = await allProjets();
       }, 1000);
     }
   }, 3000);
+  if (typeof window !== "undefined") {
+    const firstPage = document.getElementById("first-page");
+    const alreadySeen = localStorage.getItem("first-page-seen");
+    if (alreadySeen && firstPage) {
+      firstPage.remove();
+    } else if (firstPage) {
+      setTimeout(() => {
+        firstPage.style.transition = "transform 1s";
+        firstPage.style.transform = "translateY(-100%)";
+        firstPage.style.pointerEvents = "none";
+        localStorage.setItem("first-page-seen", "true");
+        setTimeout(() => {
+          firstPage.remove();
+        }, 1000);
+      }, 3000);
+    }
+  }
 </script>
