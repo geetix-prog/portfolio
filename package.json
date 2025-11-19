@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.0",
+    "@astrojs/sitemap": "^3.6.0",
     "@tailwindcss/vite": "^4.1.16",
     "astro": "^5.15.2",
     "pocketbase": "^0.26.3",

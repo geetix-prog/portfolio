@@ -1,0 +1,16 @@
+{
+  "name": "Mathis Guellati - Portfolio",
+  "short_name": "MG Portfolio",
+  "description": "Portfolio de Mathis Guellati, développeur créatif",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# robots.txt pour portfolio.mathis-guellati.fr
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio.mathis-guellati.fr/sitemap.xml

@@ -8,7 +8,10 @@ const projets = await allProjets();
 const contextes = [...new Set(projets.map(p => p.contexte))].filter(Boolean);
 ---
 
-<Layout>
+<Layout 
+  title="Mes Projets - Mathis Guellati | Portfolio Design & Développement"
+  description="Découvrez tous mes projets de design et développement web. Portfolio complet avec projets personnels, professionnels et académiques de Mathis Guellati."
+>
   <h1 class="font-fruktur text-white text-4xl lg:text-5xl mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20 capitalize">
     Tous mes projets
   </h1>

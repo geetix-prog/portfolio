@@ -17,9 +17,16 @@ const projet = await getProjet(id);
 if (!projet) {
   return Astro.redirect("/404");
 }
+
+const projectImage = projet.visuels ? `https://portfolio.mathis-guellati.fr/api/files/projets/${projet.id}/${projet.visuels}` : undefined;
 ---
 
-<Layout>
+<Layout 
+  title={`${projet.titre} - Projet de Mathis Guellati`}
+  description={projet.accroche || `Découvrez le projet ${projet.titre} réalisé par Mathis Guellati. ${projet.contexte || ''}`}
+  image={projectImage}
+  type="article"
+>
   <div class="flex items-center justify-between mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20">
     <h1 class="font-fruktur text-white text-4xl lg:text-5xl capitalize">
       {projet.titre}
