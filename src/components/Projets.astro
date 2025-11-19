@@ -10,6 +10,7 @@ const { ...proj } = Astro.props;
       src={proj.img}
       alt={proj.titre}
       class="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+      transition:name={`project-img-${proj.id}`}
     />
     <div
       class="absolute top-2 left-2 lg:top-4 lg:left-4 flex items-center gap-2"
@@ -25,6 +26,7 @@ const { ...proj } = Astro.props;
   <div class="p-3 lg:p-6 space-y-2 lg:space-y-4">
     <h3
       class="font-fruktur text-secondary text-xl lg:text-3xl group-hover:text-opacity-80 transition-opacity"
+      transition:name={`project-title-${proj.id}`}
     >
       {proj.titre}
     </h3>

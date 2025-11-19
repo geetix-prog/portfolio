@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import PageTransition from "../components/PageTransition.astro";
 
 interface Props {
   title?: string;
@@ -21,8 +22,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr" transition:animate="none">
   <head>
+    <meta name="view-transition" content="same-origin" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -61,6 +63,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body class="bg-primary">
+    <PageTransition />
     <Header />
     <div class="crosshair-line line-horizontal" id="lineH"></div>
     <div class="crosshair-line line-vertical" id="lineV"></div>
@@ -152,6 +155,59 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  /* View Transitions */
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
+  }
+
+  ::view-transition-old(root) {
+    animation-name: smoothFadeOut;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: smoothFadeIn;
+  }
+
+  @keyframes smoothFadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+  }
+
+  @keyframes smoothFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(1.02);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  ::view-transition-old(project-img),
+  ::view-transition-new(project-img) {
+    animation-duration: 0.7s;
+    animation-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
+  }
+
+  ::view-transition-old(project-title),
+  ::view-transition-new(project-title) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
   }
 </style>
 

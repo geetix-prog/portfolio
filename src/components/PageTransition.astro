@@ -1,0 +1,165 @@
+---
+// Composant de transition de page design
+---
+
+<div id="page-transition" class="page-transition">
+  <div class="transition-overlay transition-overlay-1"></div>
+  <div class="transition-overlay transition-overlay-2"></div>
+  <div class="transition-logo">
+    <img src="/favicon.svg" alt="Logo" class="logo-img" />
+  </div>
+</div>
+
+<style>
+  .page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  .transition-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #0d0d0d;
+  }
+
+  .transition-overlay-1 {
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .transition-overlay-2 {
+    right: 0;
+    left: auto;
+    transform: translateX(100%);
+    transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+    transition-delay: 0.05s;
+  }
+
+  .transition-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .logo-img {
+    width: 200px;
+    height: 200px;
+    filter: brightness(0) saturate(100%) invert(100%);
+    transform: scale(0.3) rotate(-90deg);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+
+  .page-transition.active .transition-overlay-1 {
+    transform: translateX(0);
+  }
+
+  .page-transition.active .transition-overlay-2 {
+    transform: translateX(0);
+  }
+
+  .page-transition.active .transition-logo {
+    opacity: 1;
+    transition: opacity 0.2s ease 0.3s;
+  }
+
+  .page-transition.active .logo-img {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    transition-delay: 0.35s;
+  }
+
+  .page-transition.leaving .transition-overlay-1 {
+    transform: translateX(-100%);
+  }
+
+  .page-transition.leaving .transition-overlay-2 {
+    transform: translateX(100%);
+  }
+
+  .page-transition.leaving .transition-logo {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .page-transition.leaving .logo-img {
+    transform: scale(0.3) rotate(90deg);
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+
+  @media (max-width: 768px) {
+    .logo-img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>
+
+<script>
+  let isTransitioning = false;
+
+  function initPageTransitions() {
+    const transitionElement = document.getElementById('page-transition');
+    if (!transitionElement) return;
+
+    // Intercept all internal links
+    document.addEventListener('click', (e) => {
+      const link = (e.target as HTMLElement).closest('a');
+      
+      if (!link) return;
+      if (link.hostname !== window.location.hostname) return;
+      if (link.target === '_blank') return;
+      if (isTransitioning) return;
+
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+
+      // Prevent default navigation
+      e.preventDefault();
+      isTransitioning = true;
+
+      // Start transition
+      transitionElement.classList.add('active');
+
+      // Navigate after animation
+      setTimeout(() => {
+        window.location.href = href;
+      }, 950);
+    });
+
+    // On page load, animate out
+    window.addEventListener('load', () => {
+      // Wait a bit, then slide out
+      setTimeout(() => {
+        transitionElement.classList.add('leaving');
+        setTimeout(() => {
+          transitionElement.classList.remove('leaving');
+          isTransitioning = false;
+        }, 800);
+      }, 200);
+    });
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPageTransitions);
+  } else {
+    initPageTransitions();
+  }
+
+  // Re-initialize after navigation (for view transitions)
+  document.addEventListener('astro:after-swap', initPageTransitions);
+</script>

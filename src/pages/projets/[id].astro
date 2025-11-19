@@ -28,7 +28,7 @@ const projectImage = projet.visuels ? `https://portfolio.mathis-guellati.fr/api/
   type="article"
 >
   <div class="flex items-center justify-between mt-40 lg:mt-50 px-10 lg:px-20 pb-10 lg:pb-20">
-    <h1 class="font-fruktur text-white text-4xl lg:text-5xl capitalize">
+    <h1 class="font-fruktur text-white text-4xl lg:text-5xl capitalize" transition:name={`project-title-${projet.id}`}>
       {projet.titre}
     </h1>
     <a
@@ -140,7 +140,7 @@ const projectImage = projet.visuels ? `https://portfolio.mathis-guellati.fr/api/
         {projet.accroche}
       </h2>
       <div class="flex flex-col w-4/5 lg:flex-row lg:space-x-10 space-y-6 lg:space-y-0 gap-10">
-        <img src={projet.visuels} alt={projet.titre} class="w-4/5 lg:w-150 mx-auto rounded-xl" />
+        <img src={projet.visuels} alt={projet.titre} class="w-4/5 lg:w-150 mx-auto rounded-xl" transition:name={`project-img-${projet.id}`} />
         <p class="font-grotesk my-auto lg:w-full lg:w-100 text-sm lg:text-lg leading-loose">
           {projet.desciptioncourt}
         </p>
