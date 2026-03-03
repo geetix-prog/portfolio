@@ -37,7 +37,6 @@ export async function allProjets() {
     return [];
   }
 }
-
 export async function getProjet(id) {
   try {
     let record = await pb.collection("projets").getOne(id);
